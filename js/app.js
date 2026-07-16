@@ -40,6 +40,7 @@ function loadState() {
     if (raw) {
       const saved = JSON.parse(raw);
       const def = getDefaultState();
+      if (!saved.words) saved.words = {};
       WORD_DATA.forEach(w => {
         if (!saved.words[w.id]) saved.words[w.id] = def.words[w.id];
       });
