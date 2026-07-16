@@ -31,21 +31,12 @@
           <div class="menu-icon">📖</div><div class="menu-label">今日学习</div>
           <div class="menu-badge" id="newWordsBadge">6</div>
         </div>
-        <div class="menu-item" onclick="showPage('video')">
-          <div class="menu-icon">🎬</div><div class="menu-label">视频学习</div>
-        </div>
-        <div class="menu-item" onclick="showPage('wordbook')">
-          <div class="menu-icon">📚</div><div class="menu-label">生词本</div>
-          <div class="menu-badge" id="totalWordsBadge">10</div>
-        </div>
         <div class="menu-item" onclick="showPage('listening')">
           <div class="menu-icon">🎧</div><div class="menu-label">精听训练</div>
         </div>
-        <div class="menu-item" onclick="showPage('speaking')">
-          <div class="menu-icon">🎤</div><div class="menu-label">口语练习</div>
-        </div>
-        <div class="menu-item" onclick="showPage('dashboard')">
-          <div class="menu-icon">📊</div><div class="menu-label">学习数据</div>
+        <div class="menu-item" onclick="showPage('review')">
+          <div class="menu-icon">🔄</div><div class="menu-label">复习</div>
+          <div class="menu-badge" id="reviewBadge">0</div>
         </div>
       </div>
     </section>
@@ -195,8 +186,8 @@
     <button class="nav-item active" data-page="home" onclick="showPage('home')"><span class="nav-icon">🏠</span><span class="nav-label">首页</span></button>
     <button class="nav-item" data-page="video" onclick="showPage('video')"><span class="nav-icon">🎬</span><span class="nav-label">视频</span></button>
     <button class="nav-item" data-page="wordbook" onclick="showPage('wordbook')"><span class="nav-icon">📚</span><span class="nav-label">单词</span></button>
-    <button class="nav-item" data-page="listening" onclick="showPage('listening')"><span class="nav-icon">🎧</span><span class="nav-label">精听</span></button>
     <button class="nav-item" data-page="speaking" onclick="showPage('speaking')"><span class="nav-icon">🎤</span><span class="nav-label">口语</span></button>
+    <button class="nav-item" data-page="dashboard" onclick="showPage('dashboard')"><span class="nav-icon">📊</span><span class="nav-label">数据</span></button>
   </nav>
 </div>
 <script src="js/data.js"></script>
