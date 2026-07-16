@@ -12,6 +12,10 @@ let reviewWordsToday = [];
 let currentSpeakingIndex = 0;
 let isRecording = false;
 let pageStack = ['home'];
+let ytPlayer = null;
+let currentVideoId = null;
+let videoSpeed = 1.0;
+let subtitleTimer = null;
 
 function getDefaultState() {
   const words = {};
@@ -73,9 +77,9 @@ function showPage(pageId) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const navItem = document.querySelector(`.nav-item[data-page="${pageId}"]`);
   if (navItem) navItem.classList.add('active');
-  const simplePages = ['home', 'wordbook', 'listening', 'speaking', 'dashboard'];
+  const simplePages = ['home', 'wordbook', 'listening', 'speaking', 'dashboard', 'video'];
   document.getElementById('backBtn').style.display = (simplePages.includes(pageId) && pageId !== 'home') ? 'inline' : (pageId === 'home') ? 'none' : 'inline';
-  const titles = { home: 'IELTS 雅思训练', wordbook: '生词本', listening: '精听训练', speaking: '口语练习', dashboard: '学习数据', review: '到期复习', settings: '设置', 'word-detail': '单词详情', learning: '今日学习' };
+  const titles = { home: 'IELTS 雅思训练', wordbook: '生词本', listening: '精听训练', speaking: '口语练习', dashboard: '学习数据', review: '到期复习', settings: '设置', 'word-detail': '单词详情', learning: '今日学习', video: '视频学习' };
   document.getElementById('headerTitle').textContent = titles[pageId] || 'IELTS 雅思训练';
   if (pageId !== 'home') {
     if (pageStack[pageStack.length - 1] !== pageId) pageStack.push(pageId);
@@ -88,6 +92,7 @@ function showPage(pageId) {
   else if (pageId === 'speaking') renderSpeaking();
   else if (pageId === 'dashboard') renderDashboard();
   else if (pageId === 'review') renderReview();
+  else if (pageId === 'video') renderVideoPage();
 }
 
 function goBack() {
@@ -628,6 +633,165 @@ function renderDashboard() {
     html += `<div class="week-day${isDone ? ' done' : ''}${isToday ? ' today' : ''}">${d.getDate()}</div>`;
   }
   cal.innerHTML = html;
+}
+
+/* ===== VIDEO ===== */
+function loadYouTubeAPI() {
+  if (window.YT) return;
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  const first = document.getElementsByTagName('script')[0];
+  first.parentNode.insertBefore(tag, first);
+}
+
+function onYouTubeIframeAPIReady() {
+  if (!currentVideoId) return;
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v) return;
+  if (ytPlayer) { ytPlayer.destroy(); ytPlayer = null; }
+  ytPlayer = new YT.Player('youtubePlayer', {
+    videoId: v.youtubeId,
+    height: '100%', width: '100%',
+    playerVars: { rel: 0, modestbranding: 1, playsinline: 1, fs: 0 },
+    events: { onStateChange: onPlayerStateChange }
+  });
+}
+
+function onPlayerStateChange(e) {
+  if (e.data === YT.PlayerState.PLAYING) startSubtitleSync();
+  else stopSubtitleSync();
+  document.querySelectorAll('.btn-speed-sm').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.vspeed) === videoSpeed));
+}
+
+function renderVideoPage() {
+  const sel = document.getElementById('videoSelect');
+  if (sel.options.length <= 1) {
+    VIDEOS.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v.id; opt.textContent = v.title;
+      sel.appendChild(opt);
+    });
+  }
+  if (!currentVideoId && VIDEOS.length > 0) {
+    currentVideoId = VIDEOS[0].id;
+    sel.value = currentVideoId;
+  }
+  loadYouTubeAPI();
+  loadVideo();
+}
+
+function loadVideo() {
+  const sel = document.getElementById('videoSelect');
+  const id = parseInt(sel.value);
+  if (!id) return;
+  currentVideoId = id;
+  const v = VIDEOS.find(x => x.id === id);
+  if (!v) return;
+  if (!window.YT) { loadYouTubeAPI(); return; }
+  onYouTubeIframeAPIReady();
+  renderTranscript();
+}
+
+function renderTranscript() {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v) return;
+  const showTrans = document.getElementById('showTranslation').checked;
+  const container = document.getElementById('transcript');
+  container.innerHTML = v.segments.map((seg, i) => {
+    let enHtml = seg.en;
+    if (seg.keywords && seg.keywords.length > 0) {
+      seg.keywords.sort((a, b) => b.start - a.start);
+      seg.keywords.forEach(kw => {
+        const word = seg.en.substring(kw.start, kw.end);
+        enHtml = enHtml.substring(0, kw.start) +
+          `<span class="seg-keyword">${word}</span>` +
+          enHtml.substring(kw.end);
+      });
+    }
+    return `<div class="segment" id="seg-${i}" onclick="seekTo(${seg.start})">
+      <div class="seg-en">${enHtml}</div>
+      ${showTrans ? `<div class="seg-zh">${seg.zh}</div>` : ''}
+      <div class="seg-actions">
+        <button onclick="event.stopPropagation();playSegmentAudio(${i})">🔊 听</button>
+        <button onclick="event.stopPropagation();recordSegmentAudio(${i})">🎤 跟读</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startSubtitleSync() {
+  stopSubtitleSync();
+  subtitleTimer = setInterval(() => {
+    if (!ytPlayer || !ytPlayer.getCurrentTime) { stopSubtitleSync(); return; }
+    const t = ytPlayer.getCurrentTime();
+    const v = VIDEOS.find(x => x.id === currentVideoId);
+    if (!v) return;
+    let activeIdx = -1;
+    v.segments.forEach((seg, i) => {
+      if (t >= seg.start && t < seg.end) activeIdx = i;
+    });
+    document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
+    if (activeIdx >= 0) {
+      const el = document.getElementById(`seg-${activeIdx}`);
+      if (el) {
+        el.classList.add('active');
+        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  }, 100);
+}
+
+function stopSubtitleSync() {
+  if (subtitleTimer) { clearInterval(subtitleTimer); subtitleTimer = null; }
+}
+
+function togglePlayVideo() {
+  if (!ytPlayer) return;
+  if (ytPlayer.getPlayerState && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+    ytPlayer.pauseVideo();
+  } else {
+    ytPlayer.playVideo();
+  }
+}
+
+function restartVideo() {
+  if (!ytPlayer) return;
+  ytPlayer.seekTo(0);
+  ytPlayer.playVideo();
+}
+
+function setVideoSpeed(speed) {
+  videoSpeed = speed;
+  if (ytPlayer && ytPlayer.setPlaybackRate) ytPlayer.setPlaybackRate(speed);
+  document.querySelectorAll('.btn-speed-sm').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.vspeed) === speed));
+}
+
+function seekTo(time) {
+  if (!ytPlayer) return;
+  ytPlayer.seekTo(time);
+  if (ytPlayer.getPlayerState && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+    ytPlayer.playVideo();
+  }
+}
+
+function playSegmentAudio(index) {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v || !v.segments[index]) return;
+  getTTS().speakSentence(v.segments[index].en);
+}
+
+async function recordSegmentAudio(index) {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v || !v.segments[index]) return;
+  const recorder = getRecorder();
+  if (recorder.isRecording) { await recorder.stop(); alert('录音已保存'); return; }
+  const ok = await recorder.start();
+  if (ok) {
+    getTTS().speakSentence(v.segments[index].en);
+    setTimeout(async () => {
+      if (recorder.isRecording) { await recorder.stop(); alert('跟读录音已保存'); }
+    }, 8000);
+  } else { alert('无法访问麦克风'); }
 }
 
 /* ===== INIT ===== */

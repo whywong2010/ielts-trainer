@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>IELTS 词根精听口语</title>
+<title>IELTS 雅思训练</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -15,12 +15,9 @@
   </header>
 
   <main id="appContent">
-    <!-- ===== HOME ===== -->
+    <!-- HOME -->
     <section id="page-home" class="page active">
-      <div class="greeting">
-        <span id="greetingText">今天也要加油 💪</span>
-        <small id="streakText">连续打卡 0 天</small>
-      </div>
+      <div class="greeting"><span id="greetingText">今天也要加油</span><small id="streakText">连续打卡 0 天</small></div>
       <div class="progress-card">
         <div class="progress-label">今日进度</div>
         <div class="progress-bar"><div id="todayProgress" class="progress-fill" style="width:0%"></div></div>
@@ -31,247 +28,175 @@
       </div>
       <div class="menu-grid">
         <div class="menu-item" onclick="startDailyLearning()">
-          <div class="menu-icon">📖</div>
-          <div class="menu-label">今日学习</div>
+          <div class="menu-icon">📖</div><div class="menu-label">今日学习</div>
           <div class="menu-badge" id="newWordsBadge">6</div>
         </div>
+        <div class="menu-item" onclick="showPage('video')">
+          <div class="menu-icon">🎬</div><div class="menu-label">视频学习</div>
+        </div>
         <div class="menu-item" onclick="showPage('wordbook')">
-          <div class="menu-icon">📚</div>
-          <div class="menu-label">生词本</div>
+          <div class="menu-icon">📚</div><div class="menu-label">生词本</div>
           <div class="menu-badge" id="totalWordsBadge">10</div>
         </div>
         <div class="menu-item" onclick="showPage('listening')">
-          <div class="menu-icon">🎧</div>
-          <div class="menu-label">精听训练</div>
+          <div class="menu-icon">🎧</div><div class="menu-label">精听训练</div>
         </div>
         <div class="menu-item" onclick="showPage('speaking')">
-          <div class="menu-icon">🎤</div>
-          <div class="menu-label">口语练习</div>
+          <div class="menu-icon">🎤</div><div class="menu-label">口语练习</div>
         </div>
         <div class="menu-item" onclick="showPage('dashboard')">
-          <div class="menu-icon">📊</div>
-          <div class="menu-label">学习数据</div>
-        </div>
-        <div class="menu-item" onclick="showPage('review')">
-          <div class="menu-icon">🔄</div>
-          <div class="menu-label">复习</div>
-          <div class="menu-badge" id="reviewBadge">0</div>
+          <div class="menu-icon">📊</div><div class="menu-label">学习数据</div>
         </div>
       </div>
     </section>
 
-    <!-- ===== WORD DETAIL (overlay) ===== -->
+    <!-- WORD DETAIL -->
     <section id="page-word-detail" class="page">
       <div class="word-card">
-        <div class="word-header">
-          <h2 id="wdWord">-</h2>
-          <div class="word-phonetic">
-            <span id="wdPhonetic">-</span>
-            <div class="audio-btns">
-              <button class="btn-icon" onclick="playWord()" title="朗读">🔊</button>
-            </div>
-          </div>
-        </div>
+        <div class="word-header"><h2 id="wdWord">-</h2>
+          <div class="word-phonetic"><span id="wdPhonetic">-</span>
+            <button class="btn-icon" onclick="playWord()">🔊</button></div></div>
         <div class="word-root" id="wdRoot">-</div>
         <div class="definitions" id="wdDefs"></div>
         <div class="examples" id="wdExamples"></div>
-        <div class="word-status-bar">
-          <button id="wdStatusBtn" class="btn-status" onclick="toggleWordStatus()">标记为已掌握</button>
-        </div>
+        <div class="word-status-bar"><button id="wdStatusBtn" class="btn-status" onclick="toggleWordStatus()">标记为已掌握</button></div>
       </div>
     </section>
 
-    <!-- ===== WORD BOOK ===== -->
+    <!-- WORD BOOK -->
     <section id="page-wordbook" class="page">
       <div class="search-bar">
         <input type="text" id="wordSearch" placeholder="搜索单词..." oninput="filterWords()">
-        <select id="wordFilter" onchange="filterWords()">
-          <option value="all">全部</option>
-          <option value="new">未学</option>
-          <option value="learning">学习中</option>
-          <option value="mastered">已掌握</option>
-        </select>
+        <select id="wordFilter" onchange="filterWords()"><option value="all">全部</option><option value="new">未学</option><option value="learning">学习中</option><option value="mastered">已掌握</option></select>
       </div>
       <div id="wordList" class="word-list"></div>
     </section>
 
-    <!-- ===== LEARNING FLOW ===== -->
+    <!-- LEARNING -->
     <section id="page-learning" class="page">
-      <div class="learning-progress">
-        <span id="learnProgress">1 / 6</span>
-        <div class="progress-bar"><div id="learnBar" class="progress-fill" style="width:16%"></div></div>
-      </div>
+      <div class="learning-progress"><span id="learnProgress">1 / 6</span>
+        <div class="progress-bar"><div id="learnBar" class="progress-fill" style="width:16%"></div></div></div>
       <div class="word-card learn-card" id="learnCard">
-        <div class="word-header">
-          <h2 id="learnWord">-</h2>
-          <div class="word-phonetic">
-            <span id="learnPhonetic">-</span>
-            <button class="btn-icon" onclick="playLearnWord()">🔊</button>
-          </div>
-        </div>
+        <div class="word-header"><h2 id="learnWord">-</h2>
+          <div class="word-phonetic"><span id="learnPhonetic">-</span><button class="btn-icon" onclick="playLearnWord()">🔊</button></div></div>
         <div class="word-root" id="learnRoot">-</div>
         <div class="definitions" id="learnDefs"></div>
         <div class="examples" id="learnExamples"></div>
       </div>
-      <div class="learn-actions">
-        <button class="btn btn-secondary" onclick="nextLearnWord()">下一个 →</button>
-      </div>
+      <button class="btn btn-primary btn-block" onclick="nextLearnWord()">下一个 →</button>
     </section>
 
-    <!-- ===== REVIEW ===== -->
+    <!-- REVIEW -->
     <section id="page-review" class="page">
-      <div class="review-header">
-        <h3>到期待复习 <span id="reviewCount">0</span> 词</h3>
-      </div>
+      <div class="review-header"><h3>到期待复习 <span id="reviewCount">0</span> 词</h3></div>
       <div id="reviewList" class="word-list"></div>
-      <div id="reviewEmpty" class="empty-state" style="display:none">
-        <p>🎉 暂无到期复习的单词</p>
+      <div id="reviewEmpty" class="empty-state" style="display:none"><p>🎉 暂无到期复习的单词</p></div>
+    </section>
+
+    <!-- VIDEO -->
+    <section id="page-video" class="page">
+      <div class="video-select">
+        <select id="videoSelect" onchange="loadVideo()">
+          <option value="">选择视频...</option>
+        </select>
+      </div>
+      <div class="video-player-wrapper">
+        <div id="youtubePlayer"></div>
+      </div>
+      <div class="video-controls">
+        <button class="btn btn-sm btn-primary" onclick="togglePlayVideo()">▶ 播放</button>
+        <button class="btn btn-sm" onclick="restartVideo()">⟳ 重播</button>
+        <span class="speed-control-inline">
+          <span class="speed-label">语速</span>
+          <button class="btn-speed-sm" data-vspeed="0.75" onclick="setVideoSpeed(0.75)">0.75x</button>
+          <button class="btn-speed-sm active" data-vspeed="1.0" onclick="setVideoSpeed(1.0)">1.0x</button>
+          <button class="btn-speed-sm" data-vspeed="1.25" onclick="setVideoSpeed(1.25)">1.25x</button>
+        </span>
+      </div>
+      <div class="transcript-wrap" id="transcriptWrap">
+        <div class="transcript-header">
+          <span>📝 逐句字幕</span>
+          <label class="toggle-label"><input type="checkbox" id="showTranslation" checked onchange="renderTranscript()"> 显示翻译</label>
+        </div>
+        <div class="transcript" id="transcript"></div>
       </div>
     </section>
 
-    <!-- ===== LISTENING ===== -->
+    <!-- LISTENING -->
     <section id="page-listening" class="page">
       <div class="listening-controls">
         <div class="passage-select">
-          <select id="passageSelect" onchange="loadPassage()">
-            <option value="">选择听力篇章...</option>
-          </select>
+          <select id="passageSelect" onchange="loadPassage()"><option value="">选择听力篇章...</option></select>
           <span id="passageLevel" class="badge">B2</span>
         </div>
-        <div class="speed-control">
-          <span>语速:</span>
+        <div class="speed-control"><span>语速:</span>
           <button class="btn-speed" data-speed="1.0" onclick="setListenSpeed(1.0)">1.0x</button>
           <button class="btn-speed" data-speed="1.25" onclick="setListenSpeed(1.25)">1.25x</button>
         </div>
-        <div class="listen-mode">
-          <label><input type="checkbox" id="blindMode" onchange="toggleBlindMode()"> 盲听模式（隐藏原文）</label>
-        </div>
+        <div class="listen-mode"><label><input type="checkbox" id="blindMode" onchange="toggleBlindMode()"> 盲听模式</label></div>
       </div>
       <div class="passage-content" id="passageContent"></div>
       <div class="passage-controls">
-        <button class="btn btn-secondary" onclick="playFullPassage()">▶ 播放全文</button>
-        <button class="btn btn-secondary" onclick="stopAudio()">⏹ 停止</button>
+        <button class="btn btn-sm btn-primary" onclick="playFullPassage()">▶ 播放全文</button>
+        <button class="btn btn-sm" onclick="stopAudio()">⏹ 停止</button>
       </div>
     </section>
 
-    <!-- ===== SPEAKING ===== -->
+    <!-- SPEAKING -->
     <section id="page-speaking" class="page">
-      <div class="speaking-topic">
-        <h3 id="speakTopic">-</h3>
-        <p class="speak-hint" id="speakHint">请用 PRE 结构回答</p>
-      </div>
+      <div class="speaking-topic"><h3 id="speakTopic">-</h3><p class="speak-hint" id="speakHint">Use PRE structure</p></div>
       <div class="pre-guide">
-        <div class="pre-step"><b>P</b> (Point): 一句话表达观点</div>
-        <div class="pre-step"><b>R</b> (Reason): 说明理由，运用关键词</div>
-        <div class="pre-step"><b>E</b> (Example): 补充具体例子</div>
+        <div class="pre-step"><b>P</b> Point: 一句话表达观点</div>
+        <div class="pre-step"><b>R</b> Reason: 说明理由</div>
+        <div class="pre-step"><b>E</b> Example: 补充例子</div>
       </div>
-      <div class="model-answer" id="modelAnswer">
-        <div class="model-header">
-          <span>💡 范文参考</span>
-          <button class="btn-icon" onclick="playModelAnswer()">🔊</button>
-        </div>
+      <div class="model-answer">
+        <div class="model-header"><span>💡 范文</span><button class="btn-icon" onclick="playModelAnswer()">🔊</button></div>
         <p id="modelAnswerText">-</p>
       </div>
       <div class="recording-area">
         <button id="recordBtn" class="btn btn-record" onclick="toggleRecording()">🎤 开始录音</button>
-        <div id="recordingStatus" style="display:none;color:#e53e3e">🔴 录音中...</div>
+        <div id="recordingStatus" style="display:none">🔴 录音中...</div>
       </div>
       <div class="recordings-list" id="recordingsList"></div>
       <div class="speaking-nav">
-        <button class="btn btn-secondary" onclick="prevSpeakingTopic()">← 上一题</button>
-        <button class="btn btn-secondary" onclick="nextSpeakingTopic()">下一题 →</button>
+        <button class="btn btn-sm" onclick="prevSpeakingTopic()">← 上一题</button>
+        <button class="btn btn-sm btn-primary" onclick="nextSpeakingTopic()">下一题 →</button>
       </div>
     </section>
 
-    <!-- ===== DASHBOARD ===== -->
+    <!-- DASHBOARD -->
     <section id="page-dashboard" class="page">
       <div class="dash-grid">
-        <div class="dash-card">
-          <div class="dash-num" id="dashStreak">0</div>
-          <div class="dash-label">连续打卡(天)</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-num" id="dashMastered">0</div>
-          <div class="dash-label">已掌握单词</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-num" id="dashLearning">0</div>
-          <div class="dash-label">学习中</div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-num" id="dashProgress">0%</div>
-          <div class="dash-label">总进度</div>
-        </div>
+        <div class="dash-card"><div class="dash-num" id="dashStreak">0</div><div class="dash-label">连续打卡</div></div>
+        <div class="dash-card"><div class="dash-num" id="dashMastered">0</div><div class="dash-label">已掌握</div></div>
+        <div class="dash-card"><div class="dash-num" id="dashLearning">0</div><div class="dash-label">学习中</div></div>
+        <div class="dash-card"><div class="dash-num" id="dashProgress">0%</div><div class="dash-label">总进度</div></div>
       </div>
-      <div class="dash-section">
-        <h4>学习统计</h4>
-        <div class="dash-stat"><span>累计学习天数</span><span id="dashTotalDays">0</span></div>
-        <div class="dash-stat"><span>今日听力时长</span><span id="dashListenTime">0分钟</span></div>
-        <div class="dash-stat"><span>累计录音次数</span><span id="dashRecordings">0</span></div>
+      <div class="dash-section"><h4>学习统计</h4>
+        <div class="dash-stat"><span>累计天数</span><span id="dashTotalDays">0</span></div>
+        <div class="dash-stat"><span>听力时长</span><span id="dashListenTime">0分钟</span></div>
+        <div class="dash-stat"><span>录音次数</span><span id="dashRecordings">0</span></div>
       </div>
-      <div class="dash-section">
-        <h4>本周打卡</h4>
-        <div id="dashWeekCalendar" class="week-calendar"></div>
-      </div>
+      <div class="dash-section"><h4>本周打卡</h4><div id="dashWeekCalendar" class="week-calendar"></div></div>
     </section>
 
-    <!-- ===== SETTINGS ===== -->
+    <!-- SETTINGS -->
     <section id="page-settings" class="page">
-      <div class="setting-group">
-        <label>发音口音</label>
-        <select id="settingAccent" onchange="saveSettings()">
-          <option value="uk">英音 (British)</option>
-          <option value="us">美音 (American)</option>
-        </select>
-      </div>
-      <div class="setting-group">
-        <label>默认语速</label>
-        <select id="settingSpeed" onchange="saveSettings()">
-          <option value="1.0">1.0x (正常)</option>
-          <option value="1.25">1.25x (稍快)</option>
-        </select>
-      </div>
-      <div class="setting-group">
-        <label>字号</label>
-        <select id="settingFontSize" onchange="saveSettings()">
-          <option value="small">小</option>
-          <option value="medium" selected>中</option>
-          <option value="large">大</option>
-        </select>
-      </div>
-      <div class="setting-group">
-        <label>数据管理</label>
-        <button class="btn btn-secondary" onclick="exportWords()">📤 导出生词本</button>
-        <button class="btn btn-danger" onclick="resetAll()">🗑 重置所有数据</button>
-      </div>
-      <div class="setting-group">
-        <label>关于</label>
-        <p class="about-text">IELTS 词根精听口语 V1.0<br>基于 Web Speech API，无需联网</p>
-      </div>
+      <div class="setting-group"><label>发音口音</label><select id="settingAccent" onchange="saveSettings()"><option value="uk">英音</option><option value="us">美音</option></select></div>
+      <div class="setting-group"><label>默认语速</label><select id="settingSpeed" onchange="saveSettings()"><option value="1.0">1.0x</option><option value="1.25">1.25x</option></select></div>
+      <div class="setting-group"><label>字号</label><select id="settingFontSize" onchange="saveSettings()"><option value="small">小</option><option value="medium" selected>中</option><option value="large">大</option></select></div>
+      <div class="setting-group"><label>数据</label><button class="btn btn-secondary btn-block" onclick="exportWords()">📤 导出生词本</button><button class="btn btn-danger btn-block" onclick="resetAll()">🗑 重置数据</button></div>
+      <div class="setting-group"><label>关于</label><p class="about-text">IELTS 训练 V2.0 | 视频 + 逐句字幕 + 跟读</p></div>
     </section>
   </main>
 
   <nav id="bottomNav">
-    <button class="nav-item active" data-page="home" onclick="showPage('home')">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-label">首页</span>
-    </button>
-    <button class="nav-item" data-page="wordbook" onclick="showPage('wordbook')">
-      <span class="nav-icon">📚</span>
-      <span class="nav-label">生词本</span>
-    </button>
-    <button class="nav-item" data-page="listening" onclick="showPage('listening')">
-      <span class="nav-icon">🎧</span>
-      <span class="nav-label">精听</span>
-    </button>
-    <button class="nav-item" data-page="speaking" onclick="showPage('speaking')">
-      <span class="nav-icon">🎤</span>
-      <span class="nav-label">口语</span>
-    </button>
-    <button class="nav-item" data-page="dashboard" onclick="showPage('dashboard')">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">数据</span>
-    </button>
+    <button class="nav-item active" data-page="home" onclick="showPage('home')"><span class="nav-icon">🏠</span><span class="nav-label">首页</span></button>
+    <button class="nav-item" data-page="video" onclick="showPage('video')"><span class="nav-icon">🎬</span><span class="nav-label">视频</span></button>
+    <button class="nav-item" data-page="wordbook" onclick="showPage('wordbook')"><span class="nav-icon">📚</span><span class="nav-label">单词</span></button>
+    <button class="nav-item" data-page="listening" onclick="showPage('listening')"><span class="nav-icon">🎧</span><span class="nav-label">精听</span></button>
+    <button class="nav-item" data-page="speaking" onclick="showPage('speaking')"><span class="nav-icon">🎤</span><span class="nav-label">口语</span></button>
   </nav>
 </div>
 <script src="js/data.js"></script>
