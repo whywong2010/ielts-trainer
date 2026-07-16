@@ -510,33 +510,6 @@ async function recordSentence(index) {
 }
 
 /* ===== SPEAKING ===== */
-const SPEAKING_TOPICS = [
-  {
-    question: "Do you think exercise is important?",
-    hint: "请用 PRE 结构回答",
-    model: "P: I believe exercise is extremely important for overall health.\nR: Regular physical activity can prevent many diseases and improve mental well-being.\nE: For example, my father started jogging every morning and his blood pressure dropped significantly within three months.",
-    keywords: ["benefit", "inevitable", "predict"]
-  },
-  {
-    question: "Should cities invest more in public transport?",
-    hint: "请用 PRE 结构回答，运用今日关键词",
-    model: "P: Yes, cities should invest more in public transport systems.\nR: Efficient transport can reduce traffic congestion and air pollution significantly.\nE: In my hometown, the new subway line reduced commute time by half and thousands of people benefit from it every day.",
-    keywords: ["transport", "benefit", "distribute"]
-  },
-  {
-    question: "Is it important to learn new things throughout life?",
-    hint: "请用 PRE 结构回答，运用所学词汇",
-    model: "P: Lifelong learning is essential in today's rapidly changing world.\nR: New technologies and knowledge emerge constantly, and those who fail to adapt will be left behind.\nE: My aunt learned coding at age 50 and completely changed her career path, which inspired many people around her.",
-    keywords: ["inspire", "inevitable", "comprehend"]
-  },
-  {
-    question: "Do you agree that technology has improved education?",
-    hint: "请用 PRE 结构回答",
-    model: "P: I strongly agree that technology has transformed education for the better.\nR: Online resources and digital tools make learning more accessible and personalized.\nE: During the pandemic, schools distributed tablets to students and distributed learning materials online, which prevented education from being interrupted.",
-    keywords: ["distribute", "exclude", "benefit"]
-  }
-];
-
 function renderSpeaking() {
   const topic = SPEAKING_TOPICS[currentSpeakingIndex];
   document.getElementById('speakTopic').textContent = topic.question;
