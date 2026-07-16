@@ -184,6 +184,13 @@ body {
   aspect-ratio: 16 / 9;
 }
 #youtubePlayer { width: 100%; height: 100%; }
+.video-fallback {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: #fff;
+  background: #1a1a2e; gap: 8px;
+}
+.video-fallback .fallback-icon { font-size: 32px; }
+.video-fallback .fallback-msg { font-size: 13px; opacity: 0.8; text-align: center; padding: 0 20px; }
 .video-controls {
   display: flex; align-items: center; gap: 6px;
   padding: 10px 0; flex-wrap: wrap;

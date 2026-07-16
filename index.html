@@ -91,11 +91,16 @@
           <option value="">选择视频...</option>
         </select>
       </div>
-      <div class="video-player-wrapper">
+      <div class="video-player-wrapper" id="playerWrapper">
         <div id="youtubePlayer"></div>
+        <div id="videoFallback" class="video-fallback" style="display:none">
+          <div class="fallback-icon">🎬</div>
+          <div class="fallback-msg">视频无法加载，可使用语音播放功能学习</div>
+        </div>
       </div>
       <div class="video-controls">
         <button class="btn btn-sm btn-primary" onclick="togglePlayVideo()">▶ 播放</button>
+        <button class="btn btn-sm" onclick="playAllSegments()">🔊 全文朗读</button>
         <button class="btn btn-sm" onclick="restartVideo()">⟳ 重播</button>
         <span class="speed-control-inline">
           <span class="speed-label">语速</span>
