@@ -58,3 +58,19 @@ da739ef V2.0: Professional UI + YouTube video + subtitle sync with keyword highl
 - 移除第二段影片（共 8 句）
 - 重寫第一段為 10 句，內容與實際採訪一致
 - 時長約 74 秒，適合雅思聽力學習
+
+## V2.0 影片 Fallback 增強 — 2026-07-17
+
+**問題**：YouTube 在中國大陸被擋，或影片嵌入權限限制，導致影片無法播放
+**修復**：
+1. 新增 YouTube API 載入逾時檢測（5 秒），逾時自動切換到 fallback 模式
+2. 新增 `onError` 事件處理，YouTube 播放器出錯時自動切換 fallback
+3. 新增 `showVideoFallback()` / `hideVideoFallback()` 函數，顯示友好提示
+4. 新增「全文朗讀」按鈕（`playAllSegments()`），使用 Web Speech API (TTS) 逐句播放全部字幕，同步高亮當前句子
+5. 「播放」按鈕在 `ytPlayer` 不存在時自動降級為全文朗讀
+6. 新增 CSS 樣式 `.video-fallback`、`.fallback-icon`、`.fallback-msg`
+
+**檔案變更**：
+- `js/app.js`：新增 ~60 行（fallback、逾時、playAllSegments）
+- `index.html`：新增 videoFallback 區塊、全文朗讀按鈕
+- `css/style.css`：新增 fallback 樣式
