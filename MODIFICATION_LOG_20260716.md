@@ -50,3 +50,11 @@ da739ef V2.0: Professional UI + YouTube video + subtitle sync with keyword highl
 - `app.js` 長度：26641 bytes（無重複 const）
 - 分支同步指令：`git push origin main:master`
 - 預估生效時間：30-60 秒
+
+## V2.0 影片修復 — 2026-07-16 (後續)
+
+**問題**：影片 zHtRwE3n4_I 已失效（影片被移除或無法播放）
+**修復**：更換為 Bloomberg 採訪影片 KhI7Ncl61i0，"What's Next for Eileen Gu After the Olympics"
+- 移除第二段影片（共 8 句）
+- 重寫第一段為 10 句，內容與實際採訪一致
+- 時長約 74 秒，適合雅思聽力學習
