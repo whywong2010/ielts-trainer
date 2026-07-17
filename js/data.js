@@ -169,7 +169,7 @@ const VIDEOS = [
         keywords: [{ word: "declaring", start: 13, end: 22 }] },
       { start: 52, end: 60,
         en: "You'll never find an interview of me saying I'm going to win.",
-        zh: "你永远不会找到我说"我要赢"的采访。",
+        zh: "你永远不会找到我说『我要赢』的采访。",
         keywords: [{ word: "interview", start: 19, end: 28 }] },
       { start: 60, end: 68,
         en: "I can only say retrospectively, this is what I have done.",
