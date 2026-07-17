@@ -128,6 +128,31 @@ const PASSAGES = [
       { en: "Many cities distribute free transport maps to tourists.", zh: "许多城市向游客分发免费的交通地图。" },
       { en: "It is inevitable that more people will use public transport.", zh: "越来越多的人使用公共交通是不可避免的。" },
       { en: "Good transport benefits both the economy and the environment.", zh: "良好的交通对经济和环境都有益。" }
+    ] },
+  { id: 3, title: "Climate Change", level: "B2",
+    embedWords: [6, 8],
+    content: [
+      { en: "Climate change is one of the biggest challenges we face today.", zh: "气候变化是我们当今面临的最大挑战之一。" },
+      { en: "Scientists predict that global temperatures will continue to rise.", zh: "科学家预测全球气温将继续上升。" },
+      { en: "Many countries are working together to reduce carbon emissions.", zh: "许多国家正在共同努力减少碳排放。" },
+      { en: "It is inevitable that we must change our energy sources.", zh: "我们不可避免地必须改变能源来源。" },
+      { en: "Renewable energy like solar and wind power is becoming more affordable.", zh: "太阳能和风能等可再生能源变得越来越实惠。" },
+      { en: "Individuals can also make small changes to help the environment.", zh: "个人也可以做出小改变来帮助环境。" },
+      { en: "For example, using public transport instead of private cars.", zh: "例如，使用公共交通代替私家车。" },
+      { en: "If we take action now, future generations will benefit greatly.", zh: "如果我们现在就采取行动，后代将大大受益。" }
+    ] },
+  { id: 4, title: "Lifelong Learning", level: "B2",
+    embedWords: [5, 1, 9],
+    content: [
+      { en: "Learning does not stop when you leave school.", zh: "离开学校后学习并不会停止。" },
+      { en: "Lifelong learning is essential in today's rapidly changing world.", zh: "终身学习在当今快速变化的世界中至关重要。" },
+      { en: "Many people are inspired to learn new skills later in life.", zh: "许多人受到启发在晚年学习新技能。" },
+      { en: "Online courses make it easier to access knowledge anytime.", zh: "在线课程使随时获取知识变得更加容易。" },
+      { en: "Some adults feel they must abandon old habits to make room for learning.", zh: "一些成年人觉得必须放弃旧习惯来为学习腾出空间。" },
+      { en: "It takes time to fully comprehend complex subjects.", zh: "充分理解复杂的科目需要时间。" },
+      { en: "However, the effort is worth it for personal growth.", zh: "然而，为了个人成长，这种努力是值得的。" },
+      { en: "People who keep learning tend to have more fulfilling careers.", zh: "持续学习的人往往拥有更充实的职业生涯。" },
+      { en: "In the end, education benefits everyone, regardless of age.", zh: "归根结底，教育使每个人受益，无论年龄大小。" }
     ] }
 ];
 
