@@ -1,0 +1,1888 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>IELTS 雅思训练</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F0F2F5;
+  --surface: #FFFFFF;
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-light: #DBEAFE;
+  --accent: #F59E0B;
+  --accent-bg: #FEF3C7;
+  --text: #1F2937;
+  --text-muted: #6B7280;
+  --text-light: #9CA3AF;
+  --border: #E5E7EB;
+  --success: #10B981;
+  --success-bg: #D1FAE5;
+  --danger: #EF4444;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+  --nav-height: 56px;
+  --header-height: 48px;
+}
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bg); color: var(--text);
+  height: 100%; overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px; line-height: 1.5;
+}
+#app {
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100dvh; max-width: 500px; margin: 0 auto;
+  background: var(--bg); position: relative;
+}
+
+/* HEADER */
+#appHeader {
+  display: flex; align-items: center;
+  padding: 0 16px; height: var(--header-height);
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 10;
+}
+#appHeader h1 { flex: 1; font-size: 17px; text-align: center; font-weight: 700; letter-spacing: -0.3px; }
+.header-btn { background: none; border: none; font-size: 20px; padding: 4px 6px; cursor: pointer; color: var(--text-muted); }
+#backBtn { font-size: 18px; }
+
+/* MAIN */
+#appContent {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+.page { display: none; padding: 16px; }
+.page.active { display: block; }
+
+/* BOTTOM NAV */
+#bottomNav {
+  display: flex; background: var(--surface);
+  border-top: 1px solid var(--border);
+  height: var(--nav-height); flex-shrink: 0;
+  padding: 4px 0; padding-bottom: env(safe-area-inset-bottom, 4px);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 1px;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-light); font-size: 10px; padding: 4px;
+  transition: color 0.2s;
+}
+.nav-item.active { color: var(--primary); }
+.nav-icon { font-size: 20px; line-height: 1.2; }
+.nav-label { font-size: 10px; font-weight: 500; }
+
+/* GREETING */
+.greeting { padding: 4px 0 12px; }
+.greeting span { font-size: 20px; font-weight: 700; display: block; letter-spacing: -0.5px; }
+.greeting small { color: var(--text-muted); font-size: 13px; }
+
+/* PROGRESS */
+.progress-card {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.progress-label { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 3px; transition: width 0.5s; }
+.progress-stats { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; color: var(--text-muted); }
+
+/* MENU GRID */
+.menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.menu-item {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 16px 8px; text-align: center;
+  box-shadow: var(--shadow); cursor: pointer;
+  position: relative; transition: transform 0.15s;
+}
+.menu-item:active { transform: scale(0.96); }
+.menu-icon { font-size: 26px; margin-bottom: 4px; }
+.menu-label { font-size: 12px; font-weight: 500; }
+.menu-badge {
+  position: absolute; top: 6px; right: 6px;
+  background: var(--danger); color: #fff;
+  font-size: 10px; min-width: 18px; height: 18px;
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+
+/* WORD LIST */
+.search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+.search-bar input {
+  flex: 1; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 14px; background: var(--surface);
+  outline: none;
+}
+.search-bar input:focus { border-color: var(--primary); }
+.search-bar select { padding: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); font-size: 13px; }
+.word-list { display: flex; flex-direction: column; gap: 6px; }
+.word-list-item {
+  background: var(--surface); border-radius: var(--radius-sm);
+  padding: 12px 14px; box-shadow: var(--shadow);
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer;
+}
+.word-list-item:active { opacity: 0.7; }
+.word-list-item .wl-word { font-size: 15px; font-weight: 600; }
+.word-list-item .wl-mean { font-size: 12px; color: var(--text-muted); }
+.wl-status { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.wl-status.new { background: var(--primary-light); color: var(--primary); }
+.wl-status.learning { background: var(--accent-bg); color: #92400E; }
+.wl-status.mastered { background: var(--success-bg); color: #065F46; }
+
+/* WORD CARD */
+.word-card { background: var(--surface); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+.word-header { margin-bottom: 12px; }
+.word-header h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+.word-phonetic { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+.word-root { background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; margin-bottom: 14px; color: var(--text); }
+.definitions { margin-bottom: 14px; }
+.def-item { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.def-item:last-child { border-bottom: none; }
+.def-context { font-size: 11px; background: var(--bg); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+.examples { margin-bottom: 14px; }
+.ex-item { padding: 10px; background: #FAFAFA; border-radius: var(--radius-sm); margin-bottom: 6px; font-size: 13px; }
+.ex-item .ex-en { font-weight: 500; margin-bottom: 2px; }
+.ex-item .ex-zh { color: var(--text-muted); font-size: 12px; }
+.word-status-bar { display: flex; gap: 8px; }
+
+/* BUTTONS */
+.btn {
+  padding: 10px 20px; border: none; border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.2s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.btn:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.btn:active { opacity: 0.85; transform: translateY(0); box-shadow: none; }
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 8px 16px; font-size: 13px; }
+.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+.btn-danger { background: linear-gradient(135deg, var(--danger), #DC2626); color: #fff; }
+.btn-record { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; font-size: 15px; width: 100%; padding: 12px; border-radius: var(--radius); }
+.btn-icon { background: var(--surface); border: 1px solid var(--border); font-size: 16px; cursor: pointer; padding: 6px 8px; border-radius: var(--radius-sm); transition: all 0.15s; }
+.btn-icon:hover { background: var(--primary-light); border-color: var(--primary); }
+.btn-status { flex: 1; padding: 10px; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; transition: all 0.2s; }
+.btn-status:hover { opacity: 0.92; transform: translateY(-1px); }
+
+/* LEARNING */
+.learning-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.learning-progress .progress-bar { flex: 1; }
+.learn-card { margin-bottom: 14px; }
+.learn-actions { display: flex; gap: 8px; }
+
+/* REVIEW */
+.review-header { margin-bottom: 10px; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 15px; }
+
+/* VIDEO */
+.video-select { margin-bottom: 10px; }
+.video-select select { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; background: var(--surface); }
+.video-player-wrapper {
+  position: relative; width: 100%; border-radius: var(--radius); overflow: hidden;
+  background: #000; box-shadow: var(--shadow-lg);
+  aspect-ratio: 16 / 9;
+}
+#youtubePlayer { width: 100%; height: 100%; }
+.video-fallback {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: #fff;
+  background: #1a1a2e; gap: 8px;
+}
+.video-fallback .fallback-icon { font-size: 32px; }
+.video-fallback .fallback-msg { font-size: 13px; opacity: 0.8; text-align: center; padding: 0 20px; }
+.video-controls {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 0; flex-wrap: wrap;
+}
+.speed-control-inline { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.speed-label { font-size: 11px; color: var(--text-muted); }
+.btn-speed-sm {
+  padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--surface); font-size: 11px; cursor: pointer; font-weight: 600;
+  transition: all 0.15s;
+}
+.btn-speed-sm:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+.btn-speed-sm.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
+.transcript-wrap {
+  background: var(--surface); border-radius: var(--radius);
+  box-shadow: var(--shadow); margin-top: 4px;
+}
+.transcript-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  font-weight: 600; font-size: 13px;
+}
+.toggle-label { font-weight: 400; font-size: 12px; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.toggle-label input { accent-color: var(--primary); }
+.transcript {
+  padding: 6px 14px 14px; max-height: 280px; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.segment {
+  padding: 8px 10px; margin: 4px 0; border-radius: var(--radius-sm);
+  cursor: pointer; transition: background 0.15s;
+  border-left: 3px solid transparent;
+}
+.segment.active {
+  background: var(--primary-light); border-left-color: var(--primary);
+}
+.segment .seg-en { font-size: 15px; font-weight: 500; line-height: 1.6; }
+.segment .seg-zh { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.segment .seg-keyword {
+  color: var(--danger); font-weight: 700;
+  border-bottom: 2px solid var(--accent);
+}
+.segment .seg-actions { margin-top: 4px; display: flex; gap: 6px; }
+.segment .seg-actions button {
+  font-size: 12px; padding: 5px 12px; border: 1px solid var(--border);
+  border-radius: 6px; background: var(--surface); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: all 0.15s; font-weight: 500;
+}
+.segment .seg-actions button:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+.segment .seg-actions button:active { transform: scale(0.97); }
+.segment .seg-actions button:active { opacity: 0.7; }
+
+/* LISTENING */
+.listening-controls { background: var(--surface); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); margin-bottom: 10px; }
+.passage-select { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.passage-select select { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; background: var(--surface); }
+.badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; background: var(--primary-light); color: var(--primary); font-weight: 600; }
+.speed-control { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-size: 13px; }
+.btn-speed { padding: 5px 14px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); font-size: 12px; cursor: pointer; font-weight: 500; transition: all 0.15s; }
+.btn-speed:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+.btn-speed.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
+.listen-mode { font-size: 13px; }
+.listen-mode input { margin-right: 4px; accent-color: var(--primary); }
+.passage-content { background: var(--surface); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); margin-bottom: 10px; }
+.sentence-item { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; font-size: 14px; line-height: 1.5; }
+.sentence-item:last-child { border-bottom: none; }
+.sentence-item .sent-text { flex: 1; }
+.sentence-item .sent-zh { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.sentence-item .sent-actions { display: flex; gap: 4px; margin-left: 8px; flex-shrink: 0; }
+.sentence-item .sent-actions button { font-size: 16px; padding: 4px; background: none; border: none; cursor: pointer; outline: none; }
+button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+.passage-controls { display: flex; gap: 8px; }
+.passage-controls .btn { flex: 1; }
+
+/* SPEAKING */
+.speaking-topic { margin-bottom: 12px; }
+.speaking-topic h3 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.speak-hint { color: var(--text-muted); font-size: 13px; }
+.pre-guide { background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 12px; }
+.pre-step { font-size: 13px; padding: 3px 0; }
+.model-answer { background: var(--surface); border-radius: var(--radius-sm); padding: 12px; box-shadow: var(--shadow); margin-bottom: 12px; }
+.model-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-weight: 600; font-size: 13px; }
+.model-answer p { font-size: 13px; color: var(--text-muted); line-height: 1.6; white-space: pre-wrap; }
+.recording-area { margin-bottom: 12px; }
+#recordingStatus { text-align: center; padding: 6px; font-weight: 600; font-size: 13px; color: var(--danger); }
+.recordings-list { margin-bottom: 12px; }
+.recording-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: var(--surface); border-radius: var(--radius-sm); margin-bottom: 4px; box-shadow: var(--shadow); }
+.recording-item audio { flex: 1; height: 36px; }
+.recording-item .del-btn { background: none; border: none; font-size: 16px; cursor: pointer; padding: 4px; }
+.speaking-nav { display: flex; gap: 8px; }
+.speaking-nav .btn { flex: 1; }
+
+/* DASHBOARD */
+.dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+.dash-card { background: var(--surface); border-radius: var(--radius); padding: 16px 12px; text-align: center; box-shadow: var(--shadow); }
+.dash-num { font-size: 28px; font-weight: 800; color: var(--primary); }
+.dash-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.dash-section { margin-bottom: 16px; }
+.dash-section h4 { font-size: 14px; margin-bottom: 6px; }
+.dash-stat { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.week-calendar { display: flex; gap: 4px; }
+.week-day { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--border); color: var(--text-muted); }
+.week-day.done { background: var(--success); color: #fff; }
+.week-day.today { border: 2px solid var(--primary); }
+
+/* SETTINGS */
+.setting-group { margin-bottom: 16px; }
+.setting-group label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.setting-group select { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; background: var(--surface); }
+.setting-group .btn { margin-top: 4px; }
+.about-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+/* RESPONSIVE */
+@media (min-width: 501px) { body { display: flex; justify-content: center; } }
+@media (max-width: 360px) { .menu-grid { grid-template-columns: repeat(2, 1fr); } }
+
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="appHeader">
+    <button id="backBtn" class="header-btn" style="display:none" onclick="goBack()">←</button>
+    <h1 id="headerTitle">IELTS 雅思训练</h1>
+    <button id="settingsBtn" class="header-btn" onclick="showPage('settings')">⚙</button>
+  </header>
+
+  <main id="appContent">
+    <!-- HOME -->
+    <section id="page-home" class="page active">
+      <div class="greeting"><span id="greetingText">今天也要加油</span><small id="streakText">连续打卡 0 天</small></div>
+      <div class="progress-card">
+        <div class="progress-label">今日进度</div>
+        <div class="progress-bar"><div id="todayProgress" class="progress-fill" style="width:0%"></div></div>
+        <div class="progress-stats">
+          <span>新词: <b id="newDone">0</b>/<b id="newTotal">6</b></span>
+          <span>复习: <b id="reviewDone">0</b>/<b id="reviewTotal">0</b></span>
+        </div>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item" onclick="startDailyLearning()">
+          <div class="menu-icon">📖</div><div class="menu-label">今日学习</div>
+          <div class="menu-badge" id="newWordsBadge">6</div>
+        </div>
+        <div class="menu-item" onclick="showPage('listening')">
+          <div class="menu-icon">🎧</div><div class="menu-label">精听训练</div>
+        </div>
+        <div class="menu-item" onclick="showPage('review')">
+          <div class="menu-icon">🔄</div><div class="menu-label">复习</div>
+          <div class="menu-badge" id="reviewBadge">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORD DETAIL -->
+    <section id="page-word-detail" class="page">
+      <div class="word-card">
+        <div class="word-header"><h2 id="wdWord">-</h2>
+          <div class="word-phonetic"><span id="wdPhonetic">-</span>
+            <button class="btn-icon" onclick="playWord()">🔊</button></div></div>
+        <div class="word-root" id="wdRoot">-</div>
+        <div class="definitions" id="wdDefs"></div>
+        <div class="examples" id="wdExamples"></div>
+        <div class="word-status-bar"><button id="wdStatusBtn" class="btn-status" onclick="toggleWordStatus()">标记为已掌握</button></div>
+      </div>
+    </section>
+
+    <!-- WORD BOOK -->
+    <section id="page-wordbook" class="page">
+      <div class="search-bar">
+        <input type="text" id="wordSearch" placeholder="搜索单词..." oninput="filterWords()">
+        <select id="wordFilter" onchange="filterWords()"><option value="all">全部</option><option value="new">未学</option><option value="learning">学习中</option><option value="mastered">已掌握</option></select>
+      </div>
+      <div id="wordList" class="word-list"></div>
+    </section>
+
+    <!-- LEARNING -->
+    <section id="page-learning" class="page">
+      <div class="learning-progress"><span id="learnProgress">1 / 6</span>
+        <div class="progress-bar"><div id="learnBar" class="progress-fill" style="width:16%"></div></div></div>
+      <div class="word-card learn-card" id="learnCard">
+        <div class="word-header"><h2 id="learnWord">-</h2>
+          <div class="word-phonetic"><span id="learnPhonetic">-</span><button class="btn-icon" onclick="playLearnWord()">🔊</button></div></div>
+        <div class="word-root" id="learnRoot">-</div>
+        <div class="definitions" id="learnDefs"></div>
+        <div class="examples" id="learnExamples"></div>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="nextLearnWord()">下一个 →</button>
+    </section>
+
+    <!-- REVIEW -->
+    <section id="page-review" class="page">
+      <div class="review-header"><h3>到期待复习 <span id="reviewCount">0</span> 词</h3></div>
+      <div id="reviewList" class="word-list"></div>
+      <div id="reviewEmpty" class="empty-state" style="display:none"><p>🎉 暂无到期复习的单词</p></div>
+    </section>
+
+    <!-- VIDEO -->
+    <section id="page-video" class="page">
+      <div class="video-select">
+        <select id="videoSelect" onchange="loadVideo()">
+          <option value="">选择视频...</option>
+        </select>
+      </div>
+      <div class="video-player-wrapper" id="playerWrapper">
+        <div id="youtubePlayer"></div>
+        <div id="videoFallback" class="video-fallback" style="display:none">
+          <div class="fallback-icon">🎬</div>
+          <div class="fallback-msg">视频无法加载，可使用语音播放功能学习</div>
+        </div>
+      </div>
+      <div class="video-controls">
+        <button class="btn btn-sm btn-primary" onclick="togglePlayVideo()">▶ 播放</button>
+        <button class="btn btn-sm" onclick="playAllSegments()">🔊 全文朗读</button>
+        <button class="btn btn-sm" onclick="restartVideo()">⟳ 重播</button>
+        <span class="speed-control-inline">
+          <span class="speed-label">语速</span>
+          <button class="btn-speed-sm" data-vspeed="0.75" onclick="setVideoSpeed(0.75)">0.75x</button>
+          <button class="btn-speed-sm active" data-vspeed="1.0" onclick="setVideoSpeed(1.0)">1.0x</button>
+          <button class="btn-speed-sm" data-vspeed="1.25" onclick="setVideoSpeed(1.25)">1.25x</button>
+        </span>
+      </div>
+      <div class="transcript-wrap" id="transcriptWrap">
+        <div class="transcript-header">
+          <span>📝 逐句字幕</span>
+          <label class="toggle-label"><input type="checkbox" id="showTranslation" checked onchange="renderTranscript()"> 显示翻译</label>
+        </div>
+        <div class="transcript" id="transcript"></div>
+      </div>
+    </section>
+
+    <!-- LISTENING -->
+    <section id="page-listening" class="page">
+      <div class="listening-controls">
+        <div class="passage-select">
+          <select id="passageSelect" onchange="loadPassage()"><option value="">选择听力篇章...</option></select>
+          <span id="passageLevel" class="badge">B2</span>
+        </div>
+        <div class="speed-control"><span>语速:</span>
+          <button class="btn-speed" data-speed="1.0" onclick="setListenSpeed(1.0)">1.0x</button>
+          <button class="btn-speed" data-speed="1.25" onclick="setListenSpeed(1.25)">1.25x</button>
+        </div>
+        <div class="listen-mode"><label><input type="checkbox" id="blindMode" onchange="toggleBlindMode()"> 盲听模式</label></div>
+      </div>
+      <div class="passage-content" id="passageContent"></div>
+      <div class="passage-controls">
+        <button class="btn btn-sm btn-primary" onclick="playFullPassage()">▶ 播放全文</button>
+        <button class="btn btn-sm" onclick="stopAudio()">⏹ 停止</button>
+      </div>
+    </section>
+
+    <!-- SPEAKING -->
+    <section id="page-speaking" class="page">
+      <div class="speaking-topic"><h3 id="speakTopic">-</h3><p class="speak-hint" id="speakHint">Use PRE structure</p></div>
+      <div class="pre-guide">
+        <div class="pre-step"><b>P</b> Point: 一句话表达观点</div>
+        <div class="pre-step"><b>R</b> Reason: 说明理由</div>
+        <div class="pre-step"><b>E</b> Example: 补充例子</div>
+      </div>
+      <div class="model-answer">
+        <div class="model-header"><span>💡 范文</span><button class="btn-icon" onclick="playModelAnswer()">🔊</button></div>
+        <p id="modelAnswerText">-</p>
+      </div>
+      <div class="recording-area">
+        <button id="recordBtn" class="btn btn-record" onclick="toggleRecording()">🎤 开始录音</button>
+        <div id="recordingStatus" style="display:none">🔴 录音中...</div>
+      </div>
+      <div class="recordings-list" id="recordingsList"></div>
+      <div class="speaking-nav">
+        <button class="btn btn-sm" onclick="prevSpeakingTopic()">← 上一题</button>
+        <button class="btn btn-sm btn-primary" onclick="nextSpeakingTopic()">下一题 →</button>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page">
+      <div class="dash-grid">
+        <div class="dash-card"><div class="dash-num" id="dashStreak">0</div><div class="dash-label">连续打卡</div></div>
+        <div class="dash-card"><div class="dash-num" id="dashMastered">0</div><div class="dash-label">已掌握</div></div>
+        <div class="dash-card"><div class="dash-num" id="dashLearning">0</div><div class="dash-label">学习中</div></div>
+        <div class="dash-card"><div class="dash-num" id="dashProgress">0%</div><div class="dash-label">总进度</div></div>
+      </div>
+      <div class="dash-section"><h4>学习统计</h4>
+        <div class="dash-stat"><span>累计天数</span><span id="dashTotalDays">0</span></div>
+        <div class="dash-stat"><span>听力时长</span><span id="dashListenTime">0分钟</span></div>
+        <div class="dash-stat"><span>录音次数</span><span id="dashRecordings">0</span></div>
+      </div>
+      <div class="dash-section"><h4>本周打卡</h4><div id="dashWeekCalendar" class="week-calendar"></div></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="page-settings" class="page">
+      <div class="setting-group"><label>发音口音</label><select id="settingAccent" onchange="saveSettings()"><option value="uk">英音</option><option value="us">美音</option></select></div>
+      <div class="setting-group"><label>默认语速</label><select id="settingSpeed" onchange="saveSettings()"><option value="1.0">1.0x</option><option value="1.25">1.25x</option></select></div>
+      <div class="setting-group"><label>字号</label><select id="settingFontSize" onchange="saveSettings()"><option value="small">小</option><option value="medium" selected>中</option><option value="large">大</option></select></div>
+      <div class="setting-group"><label>数据</label><button class="btn btn-secondary btn-block" onclick="exportWords()">📤 导出生词本</button><button class="btn btn-danger btn-block" onclick="resetAll()">🗑 重置数据</button></div>
+      <div class="setting-group"><label>关于</label><p class="about-text">IELTS 训练 V2.0 | 视频 + 逐句字幕 + 跟读</p></div>
+    </section>
+  </main>
+
+  <nav id="bottomNav">
+    <button class="nav-item active" data-page="home" onclick="showPage('home')"><span class="nav-icon">🏠</span><span class="nav-label">首页</span></button>
+    <button class="nav-item" data-page="video" onclick="showPage('video')"><span class="nav-icon">🎬</span><span class="nav-label">视频</span></button>
+    <button class="nav-item" data-page="wordbook" onclick="showPage('wordbook')"><span class="nav-icon">📚</span><span class="nav-label">单词</span></button>
+    <button class="nav-item" data-page="speaking" onclick="showPage('speaking')"><span class="nav-icon">🎤</span><span class="nav-label">口语</span></button>
+    <button class="nav-item" data-page="dashboard" onclick="showPage('dashboard')"><span class="nav-icon">📊</span><span class="nav-label">数据</span></button>
+  </nav>
+</div>
+<script>
+const WORD_DATA = [
+  { id: 1, word: "abandon", difficulty: 1,
+    ukPhonetic: "/əˈbændən/", usPhonetic: "/əˈbændən/",
+    root: "a- (加强) + bandon (控制) → 放弃控制",
+    definitions: [
+      { context: "通用", meaning: "放弃，抛弃" },
+      { context: "正式", meaning: "中止（计划）" }
+    ],
+    examples: [
+      { en: "They had to abandon the project due to lack of funding.", zh: "由于缺乏资金，他们不得不放弃该项目。" },
+      { en: "The driver abandoned his car on the highway.", zh: "司机把车丢弃在高速公路上。" }
+    ] },
+  { id: 2, word: "benefit", difficulty: 1,
+    ukPhonetic: "/ˈbenɪfɪt/", usPhonetic: "/ˈbenəfɪt/",
+    root: "bene- (好) + fit (做) → 利益",
+    definitions: [
+      { context: "通用", meaning: "好处，益处" },
+      { context: "职场", meaning: "福利，津贴" }
+    ],
+    examples: [
+      { en: "Regular exercise has many health benefits.", zh: "定期锻炼对健康有很多好处。" },
+      { en: "Employees receive excellent benefits including health insurance.", zh: "员工享受包括医疗保险在内的优厚福利。" }
+    ] },
+  { id: 3, word: "contradict", difficulty: 2,
+    ukPhonetic: "/ˌkɒntrəˈdɪkt/", usPhonetic: "/ˌkɑːntrəˈdɪkt/",
+    root: "contra- (相反) + dict (说) → 反驳",
+    definitions: [
+      { context: "通用", meaning: "反驳，驳斥" },
+      { context: "学术", meaning: "与…矛盾" }
+    ],
+    examples: [
+      { en: "His actions contradict his words.", zh: "他的言行自相矛盾。" },
+      { en: "The new evidence contradicts the earlier findings.", zh: "新证据与早先的发现相矛盾。" }
+    ] },
+  { id: 4, word: "exclude", difficulty: 1,
+    ukPhonetic: "/ɪkˈskluːd/", usPhonetic: "/ɪkˈskluːd/",
+    root: "ex- (向外) + clude (关闭) → 排除",
+    definitions: [
+      { context: "通用", meaning: "排除，不包括" },
+      { context: "正式", meaning: "拒绝加入" }
+    ],
+    examples: [
+      { en: "The price excludes tax and delivery fees.", zh: "价格不含税费和运费。" },
+      { en: "Children under five are excluded from the competition.", zh: "五岁以下儿童不得参加比赛。" }
+    ] },
+  { id: 5, word: "inspire", difficulty: 1,
+    ukPhonetic: "/ɪnˈspaɪə(r)/", usPhonetic: "/ɪnˈspaɪər/",
+    root: "in- (进入) + spire (精神) → 激励",
+    definitions: [
+      { context: "通用", meaning: "激励，鼓舞" },
+      { context: "艺术", meaning: "赋予灵感" }
+    ],
+    examples: [
+      { en: "Her teacher inspired her to pursue a career in science.", zh: "她的老师激励她从事科学事业。" },
+      { en: "The beautiful landscape inspired his best painting.", zh: "美丽的风景激发了他最好的画作。" }
+    ] },
+  { id: 6, word: "predict", difficulty: 1,
+    ukPhonetic: "/prɪˈdɪkt/", usPhonetic: "/prɪˈdɪkt/",
+    root: "pre- (提前) + dict (说) → 预测",
+    definitions: [
+      { context: "通用", meaning: "预测，预料" },
+      { context: "学术", meaning: "预报" }
+    ],
+    examples: [
+      { en: "Economists predict that inflation will rise next year.", zh: "经济学家预测明年通胀将上升。" },
+      { en: "It's hard to predict what will happen in the future.", zh: "很难预测未来会发生什么。" }
+    ] },
+  { id: 7, word: "transport", difficulty: 1,
+    ukPhonetic: "/ˈtrænspɔːt/", usPhonetic: "/ˈtrænspɔːrt/",
+    root: "trans- (跨越) + port (搬运) → 运输",
+    definitions: [
+      { context: "通用", meaning: "交通，运输" },
+      { context: "商务", meaning: "运输业" }
+    ],
+    examples: [
+      { en: "Public transport in the city is efficient and affordable.", zh: "这座城市的公共交通高效且实惠。" },
+      { en: "The goods were transported by ship to Europe.", zh: "货物通过船舶运输到欧洲。" }
+    ] },
+  { id: 8, word: "inevitable", difficulty: 2,
+    ukPhonetic: "/ɪnˈevɪtəbl/", usPhonetic: "/ɪnˈevɪtəbl/",
+    root: "in- (不) + evit- (避免) + -able → 不可避免的",
+    definitions: [
+      { context: "通用", meaning: "不可避免的" },
+      { context: "写作", meaning: "必然的" }
+    ],
+    examples: [
+      { en: "Change is inevitable in any organization.", zh: "变革在任何组织中都是不可避免的。" },
+      { en: "It was inevitable that they would eventually disagree.", zh: "他们最终产生分歧是不可避免的。" }
+    ] },
+  { id: 9, word: "comprehend", difficulty: 2,
+    ukPhonetic: "/ˌkɒmprɪˈhend/", usPhonetic: "/ˌkɑːmprɪˈhend/",
+    root: "com- (一起) + prehend (抓住) → 理解",
+    definitions: [
+      { context: "学术", meaning: "理解，领悟" }
+    ],
+    examples: [
+      { en: "The child couldn't comprehend the complexity of the problem.", zh: "孩子无法理解这个问题的复杂性。" },
+      { en: "It's difficult to comprehend how such a mistake could happen.", zh: "很难理解这样的错误怎么会发生。" }
+    ] },
+  { id: 10, word: "distribute", difficulty: 2,
+    ukPhonetic: "/dɪˈstrɪbjuːt/", usPhonetic: "/dɪˈstrɪbjuːt/",
+    root: "dis- (分开) + tribute (给予) → 分配",
+    definitions: [
+      { context: "商务", meaning: "分发，分配" },
+      { context: "统计", meaning: "分布" }
+    ],
+    examples: [
+      { en: "The company distributes its products to over 50 countries.", zh: "该公司将产品分销到50多个国家。" },
+      { en: "Food was distributed among the refugees.", zh: "食物被分发给了难民。" }
+    ] }
+];
+
+const PASSAGES = [
+  { id: 1, title: "Why Exercise Matters", level: "B2",
+    embedWords: [2],
+    content: [
+      { en: "Regular exercise has many health benefits.", zh: "定期锻炼对健康有很多好处。" },
+      { en: "It can help prevent heart disease and improve mental health.", zh: "它有助于预防心脏病并改善心理健康。" },
+      { en: "Many people benefit greatly from just 30 minutes of daily activity.", zh: "许多人每天只需30分钟的活动就能受益匪浅。" },
+      { en: "Scientists predict that regular exercise can extend your lifespan.", zh: "科学家预测定期锻炼可以延长寿命。" },
+      { en: "The benefits are inevitable if you stay consistent.", zh: "如果坚持下去，好处是不可避免的。" }
+    ] },
+  { id: 2, title: "Urban Transport", level: "B2",
+    embedWords: [7, 10],
+    content: [
+      { en: "Public transport in big cities is constantly improving.", zh: "大城市的公共交通在不断改善。" },
+      { en: "Efficient transport systems help reduce traffic congestion.", zh: "高效的交通系统有助于减少交通拥堵。" },
+      { en: "Many cities distribute free transport maps to tourists.", zh: "许多城市向游客分发免费的交通地图。" },
+      { en: "It is inevitable that more people will use public transport.", zh: "越来越多的人使用公共交通是不可避免的。" },
+      { en: "Good transport benefits both the economy and the environment.", zh: "良好的交通对经济和环境都有益。" }
+    ] },
+  { id: 3, title: "Climate Change", level: "B2",
+    embedWords: [6, 8],
+    content: [
+      { en: "Climate change is one of the biggest challenges we face today.", zh: "气候变化是我们当今面临的最大挑战之一。" },
+      { en: "Scientists predict that global temperatures will continue to rise.", zh: "科学家预测全球气温将继续上升。" },
+      { en: "Many countries are working together to reduce carbon emissions.", zh: "许多国家正在共同努力减少碳排放。" },
+      { en: "It is inevitable that we must change our energy sources.", zh: "我们不可避免地必须改变能源来源。" },
+      { en: "Renewable energy like solar and wind power is becoming more affordable.", zh: "太阳能和风能等可再生能源变得越来越实惠。" },
+      { en: "Individuals can also make small changes to help the environment.", zh: "个人也可以做出小改变来帮助环境。" },
+      { en: "For example, using public transport instead of private cars.", zh: "例如，使用公共交通代替私家车。" },
+      { en: "If we take action now, future generations will benefit greatly.", zh: "如果我们现在就采取行动，后代将大大受益。" }
+    ] },
+  { id: 4, title: "Lifelong Learning", level: "B2",
+    embedWords: [5, 1, 9],
+    content: [
+      { en: "Learning does not stop when you leave school.", zh: "离开学校后学习并不会停止。" },
+      { en: "Lifelong learning is essential in today's rapidly changing world.", zh: "终身学习在当今快速变化的世界中至关重要。" },
+      { en: "Many people are inspired to learn new skills later in life.", zh: "许多人受到启发在晚年学习新技能。" },
+      { en: "Online courses make it easier to access knowledge anytime.", zh: "在线课程使随时获取知识变得更加容易。" },
+      { en: "Some adults feel they must abandon old habits to make room for learning.", zh: "一些成年人觉得必须放弃旧习惯来为学习腾出空间。" },
+      { en: "It takes time to fully comprehend complex subjects.", zh: "充分理解复杂的科目需要时间。" },
+      { en: "However, the effort is worth it for personal growth.", zh: "然而，为了个人成长，这种努力是值得的。" },
+      { en: "People who keep learning tend to have more fulfilling careers.", zh: "持续学习的人往往拥有更充实的职业生涯。" },
+      { en: "In the end, education benefits everyone, regardless of age.", zh: "归根结底，教育使每个人受益，无论年龄大小。" }
+    ] },
+  { id: 5, title: "Technology & Communication", level: "B2",
+    embedWords: [9, 2],
+    content: [
+      { en: "Technology has changed the way we communicate with each other.", zh: "技术改变了我们彼此沟通的方式。" },
+      { en: "Social media allows us to stay connected with friends across the world.", zh: "社交媒体让我们与世界各地的朋友保持联系。" },
+      { en: "However, some people feel that online communication lacks depth.", zh: "然而，有些人觉得在线交流缺乏深度。" },
+      { en: "It is hard to fully comprehend emotions through text messages alone.", zh: "仅通过短信很难完全理解情感。" },
+      { en: "Young people often contradict their parents' views on technology.", zh: "年轻人常常反驳父母对技术的看法。" },
+      { en: "Despite these challenges, technology brings many benefits to communication.", zh: "尽管有这些挑战，技术给沟通带来了许多好处。" },
+      { en: "Video calls make it possible to see loved ones from a distance.", zh: "视频通话让人们能见到远方的亲人。" },
+      { en: "The key is to find a balance between online and offline interaction.", zh: "关键是在线上和线下互动之间找到平衡。" }
+    ] },
+  { id: 6, title: "Choosing a Career Path", level: "B2",
+    embedWords: [5, 1],
+    content: [
+      { en: "Choosing a career path is one of the most important decisions in life.", zh: "选择职业道路是人生中最重要的决定之一。" },
+      { en: "Many young people feel pressure to choose a stable profession.", zh: "许多年轻人感到要选择稳定职业的压力。" },
+      { en: "Parents often want their children to become doctors or lawyers.", zh: "父母通常希望孩子成为医生或律师。" },
+      { en: "However, following your passion can lead to greater satisfaction.", zh: "然而，追随自己的热情可以带来更大的满足感。" },
+      { en: "My teacher inspired me to pursue a career in education.", zh: "我的老师激励我从事教育事业。" },
+      { en: "Some people abandon their dream jobs because of financial concerns.", zh: "有些人因为经济顾虑而放弃了梦想的工作。" },
+      { en: "But doing what you love can benefit both your happiness and performance.", zh: "但做你喜欢的事情既有利于幸福感也有利于表现。" },
+      { en: "In the end, the best career is one that matches your skills and values.", zh: "归根结底，最好的职业是符合你技能和价值观的那个。" }
+    ] },
+  { id: 7, title: "Healthy Eating Habits", level: "B1",
+    embedWords: [2, 4],
+    content: [
+      { en: "A balanced diet is essential for maintaining good health.", zh: "均衡饮食对保持健康至关重要。" },
+      { en: "Many people benefit from eating more fruits and vegetables.", zh: "许多人从多吃水果和蔬菜中受益。" },
+      { en: "Experts advise excluding processed foods from your daily diet.", zh: "专家建议将加工食品排除在日常饮食之外。" },
+      { en: "It can be difficult to abandon the habit of eating junk food.", zh: "放弃吃垃圾食品的习惯可能很困难。" },
+      { en: "Cooking at home is a great way to control what you eat.", zh: "在家做饭是控制饮食的好方法。" },
+      { en: "Drinking enough water is also important for your body.", zh: "喝足够的水对你的身体也很重要。" },
+      { en: "Small changes in your diet can lead to big health improvements.", zh: "饮食上的小改变可以带来健康的大改善。" },
+      { en: "The key is to be consistent and not give up after a few days.", zh: "关键是要坚持，不要几天后就放弃。" }
+    ] }
+];
+
+const VIDEOS = [
+  {
+    id: 1,
+    youtubeId: "KhI7Ncl61i0",
+    title: "谷爱凌：关于未来与目标",
+    source: "Bloomberg Interview",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 6,
+        en: "When you think about the future, what's in it for Eileen Gu?",
+        zh: "当你想到未来，谷爱凌的未来会是什么？",
+        keywords: [{ word: "future", start: 24, end: 30 }] },
+      { start: 6, end: 14,
+        en: "People talk about movies, business, entrepreneurship.",
+        zh: "人们谈到电影、商业和创业。",
+        keywords: [{ word: "entrepreneurship", start: 28, end: 43 }] },
+      { start: 14, end: 22,
+        en: "How do you look at the future for someone who's achieved so much?",
+        zh: "你怎么看待一个已经取得这么多成就的人的未来？",
+        keywords: [{ word: "achieved", start: 46, end: 54 }] },
+      { start: 22, end: 30,
+        en: "I'm investing more now and growing interest in that area.",
+        zh: "我现在投入更多，对这个领域兴趣渐浓。",
+        keywords: [{ word: "investing", start: 4, end: 13 }] },
+      { start: 30, end: 37,
+        en: "I'd love to start a company and write a book.",
+        zh: "我想创办一家公司并写一本书。",
+        keywords: [{ word: "company", start: 18, end: 25 }] },
+      { start: 37, end: 44,
+        en: "I don't really sit still for very long.",
+        zh: "我不会长时间闲坐着。",
+        keywords: [] },
+      { start: 44, end: 52,
+        en: "I don't like declaring goals until I meet them.",
+        zh: "我不喜欢在实现目标之前就宣告出来。",
+        keywords: [{ word: "declaring", start: 13, end: 22 }] },
+      { start: 52, end: 60,
+        en: "You'll never find an interview of me saying I'm going to win.",
+        zh: "你永远不会找到我说『我要赢』的采访。",
+        keywords: [{ word: "interview", start: 19, end: 28 }] },
+      { start: 60, end: 68,
+        en: "I can only say retrospectively, this is what I have done.",
+        zh: "我只能回顾性地说出我已经做到了什么。",
+        keywords: [{ word: "retrospectively", start: 13, end: 27 }] },
+      { start: 68, end: 74,
+        en: "My goal is to make the world a better place.",
+        zh: "我的目标是让世界变得更美好。",
+        keywords: [{ word: "goal", start: 3, end: 7 }] }
+    ]
+  },
+  {
+    id: 2,
+    youtubeId: "t9PRLpkCUSM",
+    title: "雅思口语：完美发音与词汇",
+    source: "IELTS Advantage",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 7,
+        en: "I like daylight, so if I had more windows in my house, that would make it better.",
+        zh: "我喜欢日光，所以如果我家有更多窗户就更好了。",
+        keywords: [{ word: "daylight", start: 7, end: 15 }] },
+      { start: 7, end: 14,
+        en: "Now let's talk about shopping. Do you prefer shopping online or in stores?",
+        zh: "现在我们来谈谈购物。你更喜欢网购还是去商店？",
+        keywords: [{ word: "prefer", start: 44, end: 50 }] },
+      { start: 14, end: 22,
+        en: "I like shopping with others because I can get their opinion.",
+        zh: "我喜欢和别人一起购物，因为可以听取他们的意见。",
+        keywords: [{ word: "opinion", start: 47, end: 54 }] },
+      { start: 22, end: 30,
+        en: "I would consider grocery shopping important — food is essential.",
+        zh: "我认为购买日用品很重要——食物是必需品。",
+        keywords: [{ word: "essential", start: 42, end: 51 }] },
+      { start: 30, end: 38,
+        en: "In my free time, I'm currently obsessed with a game on my Nintendo.",
+        zh: "空闲时，我最近沉迷于任天堂上的一个游戏。",
+        keywords: [{ word: "obsessed", start: 25, end: 33 }] },
+      { start: 38, end: 46,
+        en: "I spend time with friends almost every day, going to the gym or running errands.",
+        zh: "我几乎每天都和朋友在一起，去健身房或跑腿办事。",
+        keywords: [{ word: "errands", start: 76, end: 83 }] },
+      { start: 46, end: 54,
+        en: "I do want to get into new hobbies and develop new skills.",
+        zh: "我确实想培养新的爱好和技能。",
+        keywords: [{ word: "develop", start: 30, end: 37 }] },
+      { start: 54, end: 62,
+        en: "It's important to keep learning and growing as a person.",
+        zh: "不断学习和成长对一个人来说很重要。",
+        keywords: [{ word: "growing", start: 37, end: 44 }] },
+      { start: 62, end: 70,
+        en: "That is how you become a well-rounded individual.",
+        zh: "这样才能成为一个全面发展的人。",
+        keywords: [] }
+    ]
+  },
+  {
+    id: 3,
+    youtubeId: "EIYfzuZ-mL4",
+    title: "雅思口语：Band 9 高分技巧",
+    source: "English Pro Tips",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 8,
+        en: "How did you get to such a high level of English?",
+        zh: "你是如何达到这么高的英语水平的？",
+        keywords: [{ word: "level", start: 33, end: 38 }] },
+      { start: 8, end: 16,
+        en: "I studied in the UK and took the TOEFL about ten years ago.",
+        zh: "我在英国学习，大约十年前考了托福。",
+        keywords: [] },
+      { start: 16, end: 24,
+        en: "When I was younger, I watched a lot of American TV shows.",
+        zh: "年轻的时候，我看了很多美国电视节目。",
+        keywords: [{ word: "shows", start: 45, end: 51 }] },
+      { start: 24, end: 32,
+        en: "I started with French subtitles and gradually switched to English ones.",
+        zh: "我开始时看法语字幕，逐渐换成了英文字幕。",
+        keywords: [{ word: "gradually", start: 27, end: 36 }] },
+      { start: 32, end: 40,
+        en: "That gave me a head start compared to others in my English class.",
+        zh: "这让我在英语班上比别人有了一个先发优势。",
+        keywords: [{ word: "head start", start: 9, end: 18 }] },
+      { start: 40, end: 48,
+        en: "I was really bad at English at first — my teacher was worried.",
+        zh: "一开始我的英语真的很差——老师很担心。",
+        keywords: [{ word: "worried", start: 53, end: 60 }] },
+      { start: 48, end: 56,
+        en: "Living in an English-speaking country is the best way to learn.",
+        zh: "生活在英语国家是最好的学习方式。",
+        keywords: [] },
+      { start: 56, end: 64,
+        en: "You are forced to immerse yourself in the language every day.",
+        zh: "你被迫每天沉浸在语言环境中。",
+        keywords: [{ word: "immerse", start: 18, end: 25 }] },
+      { start: 64, end: 72,
+        en: "It was difficult at first, but I improved gradually over time.",
+        zh: "一开始很困难，但我随着时间的推移逐渐进步了。",
+        keywords: [{ word: "improved", start: 28, end: 36 }] }
+    ]
+  },
+  {
+    id: 4,
+    youtubeId: "t4q2e-HNViU",
+    title: "雅思口语：满分学员经验分享",
+    source: "English Pro Tips",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 7,
+        en: "I decided to prepare ten hours a day for ten days before my test.",
+        zh: "我决定在考试前十天每天准备十小时。",
+        keywords: [{ word: "prepare", start: 17, end: 24 }] },
+      { start: 7, end: 15,
+        en: "When it comes to speaking, you should concentrate on your fluency.",
+        zh: "说到口语，你应该专注于流利度。",
+        keywords: [{ word: "fluency", start: 51, end: 58 }] },
+      { start: 15, end: 23,
+        en: "Most people tend to speak like a robot with ready-made phrases.",
+        zh: "大多数人倾向于用现成的短语像机器人一样说话。",
+        keywords: [{ word: "phrases", start: 56, end: 63 }] },
+      { start: 23, end: 31,
+        en: "You should also understand the whole idea of the listening passage.",
+        zh: "你应该理解听力文章的整体意思。",
+        keywords: [{ word: "passage", start: 47, end: 54 }] },
+      { start: 31, end: 39,
+        en: "Many students just hear a keyword and rush to write it down.",
+        zh: "许多学生一听到关键词就急着写下来。",
+        keywords: [{ word: "keyword", start: 24, end: 31 }] },
+      { start: 39, end: 47,
+        en: "But that doesn't always give you the correct answer.",
+        zh: "但这并不总能给你正确的答案。",
+        keywords: [] },
+      { start: 47, end: 55,
+        en: "Listen carefully and understand the full context before answering.",
+        zh: "仔细听，理解完整的上下文再作答。",
+        keywords: [{ word: "context", start: 46, end: 53 }] },
+      { start: 55, end: 63,
+        en: "My best tip is to be natural and let your ideas come from you.",
+        zh: "我最好的建议是要自然，让想法从你内心产生。",
+        keywords: [{ word: "natural", start: 20, end: 27 }] },
+      { start: 63, end: 72,
+        en: "Examiners read thousands of essays, so avoid cliché phrases.",
+        zh: "考官会读数千篇作文，所以避免陈词滥调。",
+        keywords: [{ word: "cliché", start: 46, end: 53 }] }
+    ]
+  },
+  {
+    id: 5,
+    youtubeId: "k4715CJ0Ii8",
+    title: "雅思口语：满分发音与流利度",
+    source: "IELTS Advantage",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 7,
+        en: "Let's start by talking about the mountains. Do you like to go on holiday there?",
+        zh: "我们先谈谈山。你喜欢去山里度假吗？",
+        keywords: [{ word: "mountains", start: 29, end: 38 }] },
+      { start: 7, end: 15,
+        en: "Definitely, I love nature and I always pick locations with beautiful landscapes.",
+        zh: "当然，我热爱大自然，总是选风景优美的地方。",
+        keywords: [{ word: "landscapes", start: 73, end: 83 }] },
+      { start: 15, end: 23,
+        en: "There are lodges in the mountains that they rent out to visitors.",
+        zh: "山里有小屋出租给游客。",
+        keywords: [] },
+      { start: 23, end: 31,
+        en: "It's a beautiful experience to see how local people live.",
+        zh: "体验当地人的生活是一种美好的经历。",
+        keywords: [{ word: "experience", start: 17, end: 27 }] },
+      { start: 31, end: 39,
+        en: "Do you like trees? I love spending time around trees.",
+        zh: "你喜欢树吗？我喜欢在树周围度过时光。",
+        keywords: [] },
+      { start: 39, end: 47,
+        en: "There are many benefits of planting more trees in cities.",
+        zh: "在城市里种更多树有很多好处。",
+        keywords: [{ word: "benefits", start: 20, end: 28 }] },
+      { start: 47, end: 55,
+        en: "It protects you and is much better for your health to have trees around.",
+        zh: "树木保护你，周围有树对你的健康更好。",
+        keywords: [{ word: "health", start: 55, end: 61 }] },
+      { start: 55, end: 63,
+        en: "The weather has changed drastically in recent years due to global warming.",
+        zh: "近年来由于全球变暖，天气发生了剧烈变化。",
+        keywords: [{ word: "drastically", start: 23, end: 34 }] },
+      { start: 63, end: 72,
+        en: "I enjoy winter the most because it's cold and I can go outside to play.",
+        zh: "我最喜欢冬天，因为很冷，我可以出去玩。",
+        keywords: [{ word: "enjoy", start: 3, end: 8 }] }
+    ]
+  },
+  {
+    id: 6,
+    youtubeId: "VRZPb4S_SBA",
+    title: "雅思口语：Band 9 模考反馈",
+    source: "IELTS Daily",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 8,
+        en: "How often do you listen to music? I listen in the car and when I drive.",
+        zh: "你多久听一次音乐？我在车里和开车时听。",
+        keywords: [] },
+      { start: 8, end: 16,
+        en: "Let me give you some feedback on your performance today.",
+        zh: "让我给你一些你今天表现的反馈。",
+        keywords: [{ word: "feedback", start: 17, end: 25 }] },
+      { start: 16, end: 24,
+        en: "Pronunciation is one of your strong points. You speak very clearly.",
+        zh: "发音是你的强项之一。你说话非常清晰。",
+        keywords: [{ word: "pronunciation", start: 0, end: 13 }] },
+      { start: 24, end: 32,
+        en: "You also use intonation extremely well to convey meaning.",
+        zh: "你也很擅长用语调传达意思。",
+        keywords: [{ word: "intonation", start: 17, end: 27 }] },
+      { start: 32, end: 40,
+        en: "Fluency is about speaking without unnatural pauses.",
+        zh: "流利度是指没有不自然的停顿。",
+        keywords: [{ word: "Fluency", start: 0, end: 7 }] },
+      { start: 40, end: 48,
+        en: "You should try to answer each question explicitly and directly.",
+        zh: "你应该试着直接明确地回答每个问题。",
+        keywords: [{ word: "explicitly", start: 31, end: 41 }] },
+      { start: 48, end: 56,
+        en: "Coherence means did you answer the question and develop your ideas.",
+        zh: "连贯性是指你是否回答了问题并展开了观点。",
+        keywords: [{ word: "Coherence", start: 0, end: 9 }] },
+      { start: 56, end: 64,
+        en: "Your grammar is very strong and you use complex structures well.",
+        zh: "你的语法很强，复杂结构也运用得很好。",
+        keywords: [{ word: "grammar", start: 5, end: 12 }] },
+      { start: 64, end: 72,
+        en: "Overall, your performance is at a very high level. Well done!",
+        zh: "总体而言，你的表现处于非常高的水平。做得好！",
+        keywords: [{ word: "performance", start: 17, end: 28 }] }
+    ]
+  },
+  {
+    id: 7,
+    youtubeId: "0HOf9IIt7wg",
+    title: "雅思口语：越南考生 Band 9 实战",
+    source: "AcademicEnglishHelp",
+    embedWords: [],
+    segments: [
+      { start: 0, end: 8,
+        en: "What is your full name? My name is Brendan, but please call me by my nickname.",
+        zh: "你的全名是什么？我叫 Brendan，但请叫我昵称。",
+        keywords: [{ word: "nickname", start: 50, end: 58 }] },
+      { start: 8, end: 16,
+        en: "Do you work or study? I work part-time and I'm also studying for the IELTS exam.",
+        zh: "你工作还是学习？我兼职工作，同时也在备考雅思。",
+        keywords: [{ word: "exam", start: 82, end: 86 }] },
+      { start: 16, end: 24,
+        en: "How often do you meet your friends? I meet them almost every day.",
+        zh: "你多久见一次朋友？我几乎每天都见他们。",
+        keywords: [] },
+      { start: 24, end: 32,
+        en: "What do you usually do with your friends? We go to coffee shops or nature places.",
+        zh: "你通常和朋友做什么？我们去咖啡店或大自然。",
+        keywords: [] },
+      { start: 32, end: 40,
+        en: "I met my best friend at a music festival back in 2009.",
+        zh: "我是在 2009 年的一个音乐节上遇到我最好的朋友的。",
+        keywords: [{ word: "festival", start: 31, end: 39 }] },
+      { start: 40, end: 48,
+        en: "How do you keep in touch? Through social media, messaging apps and texting.",
+        zh: "你如何保持联系？通过社交媒体、通讯应用和短信。",
+        keywords: [{ word: "social media", start: 25, end: 37 }] },
+      { start: 48, end: 56,
+        en: "The games I play have changed over the years, now I prefer board games.",
+        zh: "这些年来我玩的游戏变了，现在我喜欢桌游。",
+        keywords: [{ word: "prefer", start: 53, end: 59 }] },
+      { start: 56, end: 64,
+        en: "If I could give a gift, I would buy a motorbike for my best friend.",
+        zh: "如果我能送礼物，我会给我最好的朋友买一辆摩托车。",
+        keywords: [] },
+      { start: 64, end: 73,
+        en: "One of my most successful days was taking part in an emergency rescue effort.",
+        zh: "我最成功的日子之一是参与了一次紧急救援行动。",
+        keywords: [{ word: "emergency", start: 40, end: 49 }, { word: "rescue", start: 54, end: 60 }] }
+    ]
+  }
+];
+
+const SPEAKING_TOPICS = [
+  {
+    question: "Do you think exercise is important?",
+    hint: "Use PRE structure",
+    model: "P: I believe exercise is extremely important for overall health.\nR: Regular physical activity can prevent many diseases and improve mental well-being.\nE: For example, my father started jogging every morning and his blood pressure dropped significantly within three months.",
+    keywords: ["benefit", "inevitable", "predict"]
+  },
+  {
+    question: "Should cities invest more in public transport?",
+    hint: "Use PRE structure",
+    model: "P: Yes, cities should invest more in public transport systems.\nR: Efficient transport can reduce traffic congestion and air pollution significantly.\nE: In my hometown, the new subway line reduced commute time by half and thousands of people benefit from it every day.",
+    keywords: ["transport", "benefit", "distribute"]
+  },
+  {
+    question: "Is lifelong learning important?",
+    hint: "Use PRE structure",
+    model: "P: Lifelong learning is essential in today's rapidly changing world.\nR: New technologies and knowledge emerge constantly, and those who fail to adapt will be left behind.\nE: My aunt learned coding at age 50 and completely changed her career path, which inspired many people around her.",
+    keywords: ["inspire", "inevitable", "comprehend"]
+  },
+  {
+    question: "Has technology improved education?",
+    hint: "Use PRE structure",
+    model: "P: I strongly agree that technology has transformed education for the better.\nR: Online resources and digital tools make learning more accessible and personalized.\nE: During the pandemic, schools distributed tablets to students and distributed learning materials online, which prevented education from being interrupted.",
+    keywords: ["distribute", "exclude", "benefit"]
+  }
+];
+
+</script>
+<script src="js/tts.js"></script>
+<script src="js/recorder.js"></script>
+<script>
+/* ===== STATE ===== */
+const STORAGE_KEY = 'ietls_data';
+const EBBINGHAUS_INTERVALS = [1, 2, 4, 7, 15, 30];
+const DAILY_WORDS = 6;
+
+let state = loadState();
+let listenSpeed = 1.0;
+let currentListenPassageId = null;
+let currentLearnWordIndex = 0;
+let learnWordsToday = [];
+let reviewWordsToday = [];
+let currentSpeakingIndex = 0;
+let isRecording = false;
+let pageStack = ['home'];
+let ytPlayer = null;
+let currentVideoId = null;
+let videoSpeed = 1.0;
+let subtitleTimer = null;
+
+function getDefaultState() {
+  const words = {};
+  WORD_DATA.forEach(w => {
+    words[w.id] = { status: 'new', nextReview: null, reviewCount: 0, learnedAt: null, stage: 0 };
+  });
+  return {
+    words,
+    settings: { accent: 'uk', speed: 1.0, fontSize: 'medium' },
+    checkedIn: [],
+    totalListenTime: 0,
+    todaysNewCount: 0,
+    todaysReviewCount: 0,
+    lastSessionDate: null,
+    listenCounter: 0
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      const def = getDefaultState();
+      if (!saved.words) saved.words = {};
+      WORD_DATA.forEach(w => {
+        if (!saved.words[w.id]) saved.words[w.id] = def.words[w.id];
+      });
+      if (!saved.settings) saved.settings = def.settings;
+      if (!saved.checkedIn) saved.checkedIn = def.checkedIn;
+      return saved;
+    }
+  } catch (e) { console.error('Load error', e); }
+  return getDefaultState();
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { console.error('Save error', e); }
+}
+
+/* ===== UTILITY ===== */
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function formatDate(d) {
+  const date = new Date(d);
+  return `${date.getMonth()+1}/${date.getDate()}`;
+}
+
+function getDayOfWeek(d) {
+  return new Date(d).getDay();
+}
+
+/* ===== NAVIGATION ===== */
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navItem = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+  if (navItem) navItem.classList.add('active');
+  const simplePages = ['home', 'wordbook', 'listening', 'speaking', 'dashboard', 'video'];
+  document.getElementById('backBtn').style.display = (simplePages.includes(pageId) && pageId !== 'home') ? 'inline' : (pageId === 'home') ? 'none' : 'inline';
+  const titles = { home: 'IELTS 雅思训练', wordbook: '生词本', listening: '精听训练', speaking: '口语练习', dashboard: '学习数据', review: '到期复习', settings: '设置', 'word-detail': '单词详情', learning: '今日学习', video: '视频学习' };
+  document.getElementById('headerTitle').textContent = titles[pageId] || 'IELTS 雅思训练';
+  if (pageId !== 'home') {
+    if (pageStack[pageStack.length - 1] !== pageId) pageStack.push(pageId);
+  } else {
+    pageStack = ['home'];
+  }
+  if (pageId === 'home') renderHome();
+  else if (pageId === 'wordbook') renderWordBook();
+  else if (pageId === 'listening') renderListening();
+  else if (pageId === 'speaking') renderSpeaking();
+  else if (pageId === 'dashboard') renderDashboard();
+  else if (pageId === 'review') renderReview();
+  else if (pageId === 'video') renderVideoPage();
+}
+
+function goBack() {
+  if (pageStack.length > 1) {
+    pageStack.pop();
+    const prev = pageStack[pageStack.length - 1] || 'home';
+    showPage(prev);
+  } else {
+    showPage('home');
+  }
+}
+
+/* ===== SETTINGS ===== */
+function saveSettings() {
+  const accent = document.getElementById('settingAccent').value;
+  const speed = parseFloat(document.getElementById('settingSpeed').value);
+  const fontSize = document.getElementById('settingFontSize').value;
+  state.settings.accent = accent;
+  state.settings.speed = speed;
+  state.settings.fontSize = fontSize;
+  getTTS().setAccent(accent);
+  getTTS().setRate(speed);
+  document.documentElement.style.fontSize = fontSize === 'small' ? '14px' : fontSize === 'large' ? '18px' : '16px';
+  saveState();
+}
+
+function loadSettings() {
+  document.getElementById('settingAccent').value = state.settings.accent;
+  document.getElementById('settingSpeed').value = String(state.settings.speed);
+  document.getElementById('settingFontSize').value = state.settings.fontSize;
+  getTTS().setAccent(state.settings.accent);
+  getTTS().setRate(state.settings.speed);
+  document.documentElement.style.fontSize = state.settings.fontSize === 'small' ? '14px' : state.settings.fontSize === 'large' ? '18px' : '16px';
+}
+
+function exportWords() {
+  let text = 'IELTS 生词本导出\n';
+  text += `导出日期: ${today()}\n\n`;
+  WORD_DATA.forEach(w => {
+    const st = state.words[w.id];
+    text += `${w.word} [${st.status === 'mastered' ? '已掌握' : st.status === 'learning' ? '学习中' : '未学'}]\n`;
+    text += `  音标: ${w.ukPhonetic}\n`;
+    text += `  词根: ${w.root}\n`;
+    w.definitions.forEach(d => { text += `  [${d.context}] ${d.meaning}\n`; });
+    text += '\n';
+  });
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = `ielts_words_${today()}.txt`;
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+function resetAll() {
+  if (!confirm('确定重置所有学习数据？此操作不可恢复。')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = getDefaultState();
+  saveState();
+  showPage('home');
+}
+
+/* ===== HOME ===== */
+function renderHome() {
+  if (state.lastSessionDate !== today()) {
+    state.todaysNewCount = 0;
+    state.todaysReviewCount = 0;
+    state.lastSessionDate = today();
+    saveState();
+  }
+  const newCount = WORD_DATA.filter(w => state.words[w.id].status === 'new').length;
+  const reviewDue = getReviewDueWords().length;
+  const todayChecked = state.checkedIn.includes(today());
+
+  document.getElementById('newWordsBadge').textContent = Math.min(DAILY_WORDS, newCount);
+  document.getElementById('reviewBadge').textContent = reviewDue;
+  document.getElementById('totalWordsBadge').textContent = WORD_DATA.length;
+  document.getElementById('streakText').textContent = `连续打卡 ${calcStreak()} 天`;
+
+  const newDone = state.todaysNewCount;
+  const reviewDone = state.todaysReviewCount;
+  document.getElementById('newDone').textContent = newDone;
+  document.getElementById('newTotal').textContent = Math.min(DAILY_WORDS, newCount);
+  document.getElementById('reviewDone').textContent = reviewDone;
+  document.getElementById('reviewTotal').textContent = reviewDue;
+
+  const totalToday = Math.min(DAILY_WORDS, newCount) + reviewDue;
+  const doneToday = newDone + reviewDone;
+  const pct = totalToday > 0 ? Math.min(100, Math.round(doneToday / totalToday * 100)) : 0;
+  document.getElementById('todayProgress').style.width = pct + '%';
+  document.getElementById('greetingText').textContent = getGreeting();
+}
+
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 12) return '🌅 早上好，开始学习吧';
+  if (h < 18) return '☀️ 下午好，继续加油';
+  return '🌙 晚上好，再学一会儿';
+}
+
+function calcStreak() {
+  let streak = 0;
+  const d = new Date();
+  while (true) {
+    const ds = d.toISOString().split('T')[0];
+    if (state.checkedIn.includes(ds)) { streak++; d.setDate(d.getDate() - 1); }
+    else break;
+  }
+  return streak;
+}
+
+function checkIn() {
+  const ds = today();
+  if (!state.checkedIn.includes(ds)) {
+    state.checkedIn.push(ds);
+    saveState();
+  }
+}
+
+/* ===== DAILY LEARNING ===== */
+function startDailyLearning() {
+  const newWords = WORD_DATA.filter(w => state.words[w.id].status === 'new');
+  if (newWords.length === 0) {
+    alert('🎉 所有单词已学完！请切换到复习模式。');
+    return;
+  }
+  learnWordsToday = newWords.slice(0, DAILY_WORDS);
+  currentLearnWordIndex = 0;
+  showPage('learning');
+  renderLearnWord();
+}
+
+function renderLearnWord() {
+  if (currentLearnWordIndex >= learnWordsToday.length) {
+    finishLearning();
+    return;
+  }
+  const w = learnWordsToday[currentLearnWordIndex];
+  document.getElementById('learnProgress').textContent = `${currentLearnWordIndex + 1} / ${learnWordsToday.length}`;
+  document.getElementById('learnBar').style.width = `${((currentLearnWordIndex) / learnWordsToday.length) * 100}%`;
+  document.getElementById('learnWord').textContent = w.word;
+  document.getElementById('learnPhonetic').textContent = state.settings.accent === 'uk' ? w.ukPhonetic : w.usPhonetic;
+  document.getElementById('learnRoot').textContent = w.root;
+  document.getElementById('learnDefs').innerHTML = w.definitions.map(d =>
+    `<div class="def-item"><span class="def-context">${d.context}</span> ${d.meaning}</div>`
+  ).join('');
+  document.getElementById('learnExamples').innerHTML = w.examples.map(e =>
+    `<div class="ex-item"><div class="ex-en">${e.en}</div><div class="ex-zh">${e.zh}</div></div>`
+  ).join('');
+}
+
+function playLearnWord() {
+  if (!learnWordsToday[currentLearnWordIndex]) return;
+  const w = learnWordsToday[currentLearnWordIndex];
+  getTTS().speakWord(w.word);
+}
+
+function nextLearnWord() {
+  const w = learnWordsToday[currentLearnWordIndex];
+  if (w) {
+    state.words[w.id].status = 'learning';
+    state.words[w.id].learnedAt = today();
+    state.words[w.id].stage = 0;
+    state.words[w.id].nextReview = getNextReviewDate(0);
+    state.words[w.id].reviewCount = 0;
+    state.todaysNewCount = (state.todaysNewCount || 0) + 1;
+    checkIn();
+    saveState();
+  }
+  currentLearnWordIndex++;
+  renderLearnWord();
+}
+
+function finishLearning() {
+  showPage('home');
+}
+
+/* ===== REVIEW ===== */
+function getReviewDueWords() {
+  const ds = today();
+  return WORD_DATA.filter(w => {
+    const s = state.words[w.id];
+    return s.status === 'learning' && s.nextReview && s.nextReview <= ds;
+  });
+}
+
+function renderReview() {
+  reviewWordsToday = getReviewDueWords();
+  const container = document.getElementById('reviewList');
+  const empty = document.getElementById('reviewEmpty');
+  document.getElementById('reviewCount').textContent = reviewWordsToday.length;
+  if (reviewWordsToday.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  container.innerHTML = reviewWordsToday.map(w => {
+    const s = state.words[w.id];
+    return `<div class="word-list-item" onclick="openReviewWord(${w.id})">
+      <div><div class="wl-word">${w.word}</div><div class="wl-mean">${w.definitions[0].meaning}</div></div>
+      <span class="wl-status learning">复习中</span>
+    </div>`;
+  }).join('');
+}
+
+function openReviewWord(id) {
+  const w = WORD_DATA.find(x => x.id === id);
+  if (!w) return;
+  showWordDetail(w, () => {
+    const s = state.words[w.id];
+    s.stage = Math.min(s.stage + 1, EBBINGHAUS_INTERVALS.length - 1);
+    s.nextReview = getNextReviewDate(s.stage);
+    s.reviewCount = (s.reviewCount || 0) + 1;
+    if (s.stage >= EBBINGHAUS_INTERVALS.length - 1) s.status = 'mastered';
+    state.todaysReviewCount = (state.todaysReviewCount || 0) + 1;
+    checkIn();
+    saveState();
+    renderReview();
+    showPage('review');
+  });
+}
+
+function getNextReviewDate(stage) {
+  const d = new Date();
+  d.setDate(d.getDate() + EBBINGHAUS_INTERVALS[Math.min(stage, EBBINGHAUS_INTERVALS.length - 1)]);
+  return d.toISOString().split('T')[0];
+}
+
+/* ===== WORD BOOK ===== */
+function renderWordBook() {
+  const query = (document.getElementById('wordSearch').value || '').toLowerCase();
+  const filter = document.getElementById('wordFilter').value;
+  let list = WORD_DATA.filter(w => {
+    if (filter !== 'all' && state.words[w.id] && state.words[w.id].status !== filter) return false;
+    if (query && !w.word.toLowerCase().includes(query)) return false;
+    return true;
+  });
+  const container = document.getElementById('wordList');
+  container.innerHTML = list.map(w => {
+    const status = state.words[w.id] ? state.words[w.id].status : 'new';
+    const statusLabels = { new: '未学', learning: '学习中', mastered: '已掌握' };
+    return `<div class="word-list-item" onclick="showWordDetail(WORD_DATA.find(x=>x.id===${w.id}), null, true)">
+      <div><div class="wl-word">${w.word}</div><div class="wl-mean">${w.definitions[0].context}: ${w.definitions[0].meaning}</div></div>
+      <span class="wl-status ${status}">${statusLabels[status]}</span>
+    </div>`;
+  }).join('');
+  if (list.length === 0) container.innerHTML = '<p style="text-align:center;padding:20px;color:var(--text-muted)">无匹配单词</p>';
+}
+
+function filterWords() { renderWordBook(); }
+
+/* ===== WORD DETAIL ===== */
+function showWordDetail(w, onReviewComplete, fromBook) {
+  showPage('word-detail');
+  document.getElementById('backBtn').style.display = 'inline';
+  document.getElementById('headerTitle').textContent = '单词详情';
+
+  document.getElementById('wdWord').textContent = w.word;
+  document.getElementById('wdPhonetic').textContent = state.settings.accent === 'uk' ? w.ukPhonetic : w.usPhonetic;
+  document.getElementById('wdRoot').textContent = w.root;
+  document.getElementById('wdDefs').innerHTML = w.definitions.map(d =>
+    `<div class="def-item"><span class="def-context">${d.context}</span> ${d.meaning}</div>`
+  ).join('');
+  document.getElementById('wdExamples').innerHTML = w.examples.map(e =>
+    `<div class="ex-item">
+      <div class="ex-en">${e.en}</div>
+      <div class="ex-zh">${e.zh}</div>
+      <div class="ex-audio"><button class="btn-icon" onclick="speakExample('${e.en.replace(/'/g, "\\'")}')">🔊 朗读例句</button></div>
+    </div>`
+  ).join('');
+
+  const s = state.words[w.id];
+  const statusBtn = document.getElementById('wdStatusBtn');
+  if (s.status === 'mastered') {
+    statusBtn.textContent = '✅ 已掌握';
+    statusBtn.style.background = '#38A169';
+  } else {
+    statusBtn.textContent = '标记为已掌握';
+    statusBtn.style.background = '#1A365D';
+  }
+  statusBtn.onclick = function() {
+    s.status = s.status === 'mastered' ? 'learning' : 'mastered';
+    s.nextReview = null;
+    saveState();
+    showWordDetail(w, onReviewComplete, fromBook);
+  };
+}
+
+function playWord() {
+  const word = document.getElementById('wdWord').textContent;
+  getTTS().speakWord(word);
+}
+
+function speakExample(text) {
+  getTTS().speakSentence(text);
+}
+
+function toggleWordStatus() { /* handled inline */ }
+
+/* ===== LISTENING ===== */
+function renderListening() {
+  const sel = document.getElementById('passageSelect');
+  if (sel.options.length <= 1) {
+    PASSAGES.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id; opt.textContent = p.title;
+      sel.appendChild(opt);
+    });
+  }
+  if (!currentListenPassageId && PASSAGES.length > 0) {
+    currentListenPassageId = PASSAGES[0].id;
+    sel.value = currentListenPassageId;
+  }
+  loadPassage();
+
+  const w = new Date().getDay();
+  const locked = (calcDaysSinceStart() < 7);
+  document.querySelectorAll('.btn-speed').forEach(b => {
+    b.classList.toggle('active', parseFloat(b.dataset.speed) === listenSpeed);
+    b.disabled = false;
+  });
+  if (locked) {
+    document.querySelector('.btn-speed[data-speed="1.25"]').disabled = true;
+    document.querySelector('.btn-speed[data-speed="1.25"]').style.opacity = '0.4';
+  } else {
+    document.querySelector('.btn-speed[data-speed="1.25"]').style.opacity = '1';
+  }
+}
+
+function calcDaysSinceStart() {
+  if (state.checkedIn.length === 0) return 0;
+  const first = new Date(Math.min(...state.checkedIn.map(d => new Date(d).getTime())));
+  return Math.floor((new Date() - first) / (1000 * 60 * 60 * 24)) + 1;
+}
+
+function loadPassage() {
+  const sel = document.getElementById('passageSelect');
+  const id = parseInt(sel.value);
+  if (!id) { document.getElementById('passageContent').innerHTML = '<p>请选择篇章</p>'; return; }
+  const p = PASSAGES.find(x => x.id === id);
+  if (!p) return;
+  currentListenPassageId = id;
+  document.getElementById('passageLevel').textContent = p.level;
+  const blind = document.getElementById('blindMode').checked;
+  const container = document.getElementById('passageContent');
+  container.innerHTML = p.content.map((s, i) => {
+    const textDisplay = blind
+      ? `<span style="color:var(--bg);user-select:none">${s.en}</span>`
+      : `<span>${s.en}</span>`;
+    return `<div class="sentence-item">
+      <div class="sent-text">${textDisplay}<div class="sent-zh">${s.zh}</div></div>
+      <div class="sent-actions">
+        <button onclick="playSentence(${i})" title="朗读">🔊</button>
+        <button onclick="recordSentence(${i})" title="跟读录音">🎤</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setListenSpeed(speed) {
+  if (speed > 1.0 && calcDaysSinceStart() < 7) {
+    alert('首周默认锁定 1.0x 语速，第2周起可切换 1.25x');
+    return;
+  }
+  listenSpeed = speed;
+  getTTS().setRate(speed);
+  document.querySelectorAll('.btn-speed').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.speed) === speed));
+}
+
+function toggleBlindMode() { loadPassage(); }
+
+function playSentence(index) {
+  const p = PASSAGES.find(x => x.id === currentListenPassageId);
+  if (!p || !p.content[index]) return;
+  getTTS().speakSentence(p.content[index].en);
+}
+
+function playFullPassage() {
+  const p = PASSAGES.find(x => x.id === currentListenPassageId);
+  if (!p) return;
+  let i = 0;
+  function playNext() {
+    if (i < p.content.length) {
+      getTTS().speakSentence(p.content[i].en, () => { i++; setTimeout(playNext, 400); });
+    }
+  }
+  playNext();
+}
+
+function stopAudio() {
+  getTTS().stop();
+}
+
+async function recordSentence(index) {
+  const p = PASSAGES.find(x => x.id === currentListenPassageId);
+  if (!p || !p.content[index]) return;
+  const recorder = getRecorder();
+  if (recorder.isRecording) {
+    await recorder.stop();
+    alert('录音已保存');
+    return;
+  }
+  const ok = await recorder.start();
+  if (ok) {
+    getTTS().speakSentence(p.content[index].en);
+    setTimeout(async () => {
+      if (recorder.isRecording) {
+        await recorder.stop();
+        alert('跟读录音已保存，可到口语页收听');
+      }
+    }, 8000);
+  } else {
+    alert('无法访问麦克风，请检查权限');
+  }
+}
+
+/* ===== SPEAKING ===== */
+function renderSpeaking() {
+  const topic = SPEAKING_TOPICS[currentSpeakingIndex];
+  document.getElementById('speakTopic').textContent = topic.question;
+  document.getElementById('speakHint').textContent = topic.hint;
+  document.getElementById('modelAnswerText').textContent = topic.model;
+  renderRecordings();
+}
+
+function playModelAnswer() {
+  const topic = SPEAKING_TOPICS[currentSpeakingIndex];
+  if (!topic) return;
+  getTTS().speakSentence(topic.model);
+}
+
+async function toggleRecording() {
+  const recorder = getRecorder();
+  if (!isRecording) {
+    const ok = await recorder.start();
+    if (ok) {
+      isRecording = true;
+      document.getElementById('recordBtn').textContent = '⏹ 停止录音';
+      document.getElementById('recordBtn').style.background = '#E53E3E';
+      document.getElementById('recordingStatus').style.display = 'block';
+    } else {
+      alert('无法访问麦克风，请检查权限设置');
+    }
+  } else {
+    const result = await recorder.stop();
+    isRecording = false;
+    document.getElementById('recordBtn').textContent = '🎤 开始录音';
+    document.getElementById('recordBtn').style.background = '';
+    document.getElementById('recordingStatus').style.display = 'none';
+    if (result) {
+      renderRecordings();
+    }
+  }
+}
+
+function renderRecordings() {
+  const recordings = getRecorder().getRecordings();
+  const container = document.getElementById('recordingsList');
+  if (recordings.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = recordings.map((r, i) =>
+    `<div class="recording-item">
+      <audio controls src="${r.url}"></audio>
+      <button class="del-btn" onclick="deleteRecording(${i})">🗑</button>
+    </div>`
+  ).join('');
+  state.listenCounter = (state.listenCounter || 0) + 1;
+  saveState();
+}
+
+function deleteRecording(index) {
+  getRecorder().deleteRecording(index);
+  renderRecordings();
+}
+
+function nextSpeakingTopic() {
+  currentSpeakingIndex = (currentSpeakingIndex + 1) % SPEAKING_TOPICS.length;
+  renderSpeaking();
+}
+
+function prevSpeakingTopic() {
+  currentSpeakingIndex = (currentSpeakingIndex - 1 + SPEAKING_TOPICS.length) % SPEAKING_TOPICS.length;
+  renderSpeaking();
+}
+
+/* ===== DASHBOARD ===== */
+function renderDashboard() {
+  const total = WORD_DATA.length;
+  const mastered = WORD_DATA.filter(w => state.words[w.id].status === 'mastered').length;
+  const learning = WORD_DATA.filter(w => state.words[w.id].status === 'learning').length;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+
+  document.getElementById('dashStreak').textContent = calcStreak();
+  document.getElementById('dashMastered').textContent = mastered;
+  document.getElementById('dashLearning').textContent = learning;
+  document.getElementById('dashProgress').textContent = pct + '%';
+  document.getElementById('dashTotalDays').textContent = state.checkedIn.length;
+  document.getElementById('dashListenTime').textContent = Math.round((state.listenCounter || 0) * 1.5) + '分钟';
+  document.getElementById('dashRecordings').textContent = getRecorder().getRecordings().length;
+
+  const cal = document.getElementById('dashWeekCalendar');
+  const todayDate = new Date();
+  let html = '';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(todayDate);
+    d.setDate(d.getDate() - i);
+    const ds = d.toISOString().split('T')[0];
+    const isToday = ds === today();
+    const isDone = state.checkedIn.includes(ds);
+    html += `<div class="week-day${isDone ? ' done' : ''}${isToday ? ' today' : ''}">${d.getDate()}</div>`;
+  }
+  cal.innerHTML = html;
+}
+
+/* ===== VIDEO ===== */
+let videoApiLoadTimer = null;
+
+function loadYouTubeAPI() {
+  if (window.YT) return;
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  tag.onerror = () => showVideoFallback();
+  const first = document.getElementsByTagName('script')[0];
+  first.parentNode.insertBefore(tag, first);
+  if (!videoApiLoadTimer) {
+    videoApiLoadTimer = setTimeout(() => {
+      if (!window.YT) showVideoFallback();
+    }, 5000);
+  }
+}
+
+function onYouTubeIframeAPIReady() {
+  if (!currentVideoId) return;
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v) return;
+  if (videoApiLoadTimer) { clearTimeout(videoApiLoadTimer); videoApiLoadTimer = null; }
+  if (ytPlayer) { ytPlayer.destroy(); ytPlayer = null; }
+  ytPlayer = new YT.Player('youtubePlayer', {
+    videoId: v.youtubeId,
+    height: '100%', width: '100%',
+    playerVars: { rel: 0, modestbranding: 1, playsinline: 1, fs: 0 },
+    events: {
+      onStateChange: onPlayerStateChange,
+      onError: showVideoFallback
+    }
+  });
+}
+
+function showVideoFallback() {
+  const wrapper = document.getElementById('playerWrapper');
+  if (wrapper) wrapper.querySelector('#youtubePlayer').style.display = 'none';
+  if (wrapper) wrapper.querySelector('#videoFallback').style.display = 'flex';
+  if (videoApiLoadTimer) { clearTimeout(videoApiLoadTimer); videoApiLoadTimer = null; }
+}
+
+function hideVideoFallback() {
+  const wrapper = document.getElementById('playerWrapper');
+  if (wrapper) wrapper.querySelector('#youtubePlayer').style.display = '';
+  if (wrapper) wrapper.querySelector('#videoFallback').style.display = 'none';
+}
+
+function onPlayerStateChange(e) {
+  if (e.data === YT.PlayerState.PLAYING) startSubtitleSync();
+  else stopSubtitleSync();
+  document.querySelectorAll('.btn-speed-sm').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.vspeed) === videoSpeed));
+}
+
+function renderVideoPage() {
+  const sel = document.getElementById('videoSelect');
+  if (sel.options.length <= 1) {
+    VIDEOS.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v.id; opt.textContent = v.title;
+      sel.appendChild(opt);
+    });
+  }
+  if (!currentVideoId && VIDEOS.length > 0) {
+    currentVideoId = VIDEOS[0].id;
+    sel.value = currentVideoId;
+  }
+  loadYouTubeAPI();
+  loadVideo();
+}
+
+function loadVideo() {
+  const sel = document.getElementById('videoSelect');
+  const id = parseInt(sel.value);
+  if (!id) return;
+  currentVideoId = id;
+  const v = VIDEOS.find(x => x.id === id);
+  if (!v) return;
+  hideVideoFallback();
+  if (videoApiLoadTimer) { clearTimeout(videoApiLoadTimer); videoApiLoadTimer = null; }
+  if (!window.YT) { loadYouTubeAPI(); renderTranscript(); return; }
+  onYouTubeIframeAPIReady();
+  renderTranscript();
+}
+
+function renderTranscript() {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v) return;
+  const showTrans = document.getElementById('showTranslation').checked;
+  const container = document.getElementById('transcript');
+  container.innerHTML = v.segments.map((seg, i) => {
+    let enHtml = seg.en;
+    if (seg.keywords && seg.keywords.length > 0) {
+      seg.keywords.sort((a, b) => b.start - a.start);
+      seg.keywords.forEach(kw => {
+        const word = seg.en.substring(kw.start, kw.end);
+        enHtml = enHtml.substring(0, kw.start) +
+          `<span class="seg-keyword">${word}</span>` +
+          enHtml.substring(kw.end);
+      });
+    }
+    return `<div class="segment" id="seg-${i}" onclick="seekTo(${seg.start})">
+      <div class="seg-en">${enHtml}</div>
+      ${showTrans ? `<div class="seg-zh">${seg.zh}</div>` : ''}
+      <div class="seg-actions">
+        <button onclick="event.stopPropagation();playSegmentAudio(${i})">🔊 听</button>
+        <button onclick="event.stopPropagation();recordSegmentAudio(${i})">🎤 跟读</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function startSubtitleSync() {
+  stopSubtitleSync();
+  subtitleTimer = setInterval(() => {
+    if (!ytPlayer || !ytPlayer.getCurrentTime) { stopSubtitleSync(); return; }
+    const t = ytPlayer.getCurrentTime();
+    const v = VIDEOS.find(x => x.id === currentVideoId);
+    if (!v) return;
+    let activeIdx = -1;
+    v.segments.forEach((seg, i) => {
+      if (t >= seg.start && t < seg.end) activeIdx = i;
+    });
+    document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
+    if (activeIdx >= 0) {
+      const el = document.getElementById(`seg-${activeIdx}`);
+      if (el) {
+        el.classList.add('active');
+        el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  }, 100);
+}
+
+function stopSubtitleSync() {
+  if (subtitleTimer) { clearInterval(subtitleTimer); subtitleTimer = null; }
+}
+
+function togglePlayVideo() {
+  if (!ytPlayer) { playAllSegments(); return; }
+  if (ytPlayer.getPlayerState && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+    ytPlayer.pauseVideo();
+  } else {
+    ytPlayer.playVideo();
+  }
+}
+
+function playAllSegments() {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v || !v.segments.length) return;
+  let i = 0;
+  const play = () => {
+    if (i >= v.segments.length) return;
+    getTTS().speakSentence(v.segments[i].en, () => { i++; play(); });
+    document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
+    const el = document.getElementById(`seg-${i}`);
+    if (el) {
+      el.classList.add('active');
+      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  };
+  getTTS().stop();
+  play();
+}
+
+function restartVideo() {
+  if (!ytPlayer) return;
+  ytPlayer.seekTo(0);
+  ytPlayer.playVideo();
+}
+
+function setVideoSpeed(speed) {
+  videoSpeed = speed;
+  if (ytPlayer && ytPlayer.setPlaybackRate) ytPlayer.setPlaybackRate(speed);
+  document.querySelectorAll('.btn-speed-sm').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.vspeed) === speed));
+}
+
+function seekTo(time) {
+  if (!ytPlayer) return;
+  ytPlayer.seekTo(time);
+  if (ytPlayer.getPlayerState && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+    ytPlayer.playVideo();
+  }
+}
+
+function playSegmentAudio(index) {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v || !v.segments[index]) return;
+  getTTS().speakSentence(v.segments[index].en);
+}
+
+async function recordSegmentAudio(index) {
+  const v = VIDEOS.find(x => x.id === currentVideoId);
+  if (!v || !v.segments[index]) return;
+  const recorder = getRecorder();
+  if (recorder.isRecording) { await recorder.stop(); alert('录音已保存'); return; }
+  const ok = await recorder.start();
+  if (ok) {
+    getTTS().speakSentence(v.segments[index].en);
+    setTimeout(async () => {
+      if (recorder.isRecording) { await recorder.stop(); alert('跟读录音已保存'); }
+    }, 8000);
+  } else { alert('无法访问麦克风'); }
+}
+
+/* ===== INIT ===== */
+function init() {
+  getTTS();
+  loadSettings();
+  renderHome();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
+

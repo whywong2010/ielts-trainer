@@ -1,7 +1,7 @@
 const WORD_DATA = [
   { id: 1, word: "abandon", difficulty: 1,
     ukPhonetic: "/əˈbændən/", usPhonetic: "/əˈbændən/",
-    root: "a- (加强) + bandon (控制) → 放弃控制",
+    root: "a- (ad-, 朝向) + bandon (控制/权力) → 置于他人控制之下 → 放弃",
     definitions: [
       { context: "通用", meaning: "放弃，抛弃" },
       { context: "正式", meaning: "中止（计划）" }
@@ -12,7 +12,7 @@ const WORD_DATA = [
     ] },
   { id: 2, word: "benefit", difficulty: 1,
     ukPhonetic: "/ˈbenɪfɪt/", usPhonetic: "/ˈbenəfɪt/",
-    root: "bene- (好) + fit (做) → 利益",
+    root: "bene- (好) + factum (做) → 做得好 → 利益",
     definitions: [
       { context: "通用", meaning: "好处，益处" },
       { context: "职场", meaning: "福利，津贴" }
@@ -45,7 +45,7 @@ const WORD_DATA = [
     ] },
   { id: 5, word: "inspire", difficulty: 1,
     ukPhonetic: "/ɪnˈspaɪə(r)/", usPhonetic: "/ɪnˈspaɪər/",
-    root: "in- (进入) + spire (精神) → 激励",
+    root: "in- (进入) + spire (呼吸) → 注入气息 → 赋予灵感",
     definitions: [
       { context: "通用", meaning: "激励，鼓舞" },
       { context: "艺术", meaning: "赋予灵感" }
@@ -89,7 +89,7 @@ const WORD_DATA = [
     ] },
   { id: 9, word: "comprehend", difficulty: 2,
     ukPhonetic: "/ˌkɒmprɪˈhend/", usPhonetic: "/ˌkɑːmprɪˈhend/",
-    root: "com- (一起) + prehend (抓住) → 理解",
+    root: "com- (完全) + prehend (抓住) → 完全掌握 → 理解",
     definitions: [
       { context: "学术", meaning: "理解，领悟" }
     ],
@@ -107,6 +107,326 @@ const WORD_DATA = [
     examples: [
       { en: "The company distributes its products to over 50 countries.", zh: "该公司将产品分销到50多个国家。" },
       { en: "Food was distributed among the refugees.", zh: "食物被分发给了难民。" }
+    ] },
+  { id: 11, word: "analyze", difficulty: 2,
+    ukPhonetic: "/ˈænəlaɪz/", usPhonetic: "/ˈænəlaɪz/",
+    root: "ana- (贯穿) + lysis (解开) → 彻底解开 → 分析",
+    definitions: [
+      { context: "学术", meaning: "分析，解析" }
+    ],
+    examples: [
+      { en: "Scientists analyzed the data carefully before drawing conclusions.", zh: "科学家在下结论之前仔细分析了数据。" },
+      { en: "The report analyzes the impact of climate change on agriculture.", zh: "这份报告分析了气候变化对农业的影响。" }
+    ] },
+  { id: 12, word: "contribute", difficulty: 1,
+    ukPhonetic: "/kənˈtrɪbjuːt/", usPhonetic: "/kənˈtrɪbjuːt/",
+    root: "con- (一起) + tribute (给予) → 贡献",
+    definitions: [
+      { context: "通用", meaning: "贡献，捐献" },
+      { context: "职场", meaning: "促成，导致" }
+    ],
+    examples: [
+      { en: "Everyone should contribute to protecting the environment.", zh: "每个人都应该为保护环境做出贡献。" },
+      { en: "Several factors contributed to the company's success.", zh: "多个因素促成了公司的成功。" }
+    ] },
+  { id: 13, word: "demonstrate", difficulty: 2,
+    ukPhonetic: "/ˈdemənstreɪt/", usPhonetic: "/ˈdemənstreɪt/",
+    root: "de- (完全) + monstrate (展示) → 充分展示",
+    definitions: [
+      { context: "学术", meaning: "证明，论证" },
+      { context: "通用", meaning: "演示，示范" }
+    ],
+    examples: [
+      { en: "The experiment demonstrates the theory of gravity.", zh: "这个实验证明了万有引力理论。" },
+      { en: "He demonstrated how to use the new software.", zh: "他演示了如何使用新软件。" }
+    ] },
+  { id: 14, word: "environment", difficulty: 1,
+    ukPhonetic: "/ɪnˈvaɪrənmənt/", usPhonetic: "/ɪnˈvaɪrənmənt/",
+    root: "environ (围绕) + ment (名词) → 周围环境",
+    definitions: [
+      { context: "通用", meaning: "环境" },
+      { context: "生态", meaning: "自然环境" }
+    ],
+    examples: [
+      { en: "We need to protect the environment for future generations.", zh: "我们需要为子孙后代保护环境。" },
+      { en: "The school provides a supportive learning environment.", zh: "这所学校提供了一个支持性的学习环境。" }
+    ] },
+  { id: 15, word: "establish", difficulty: 2,
+    ukPhonetic: "/ɪˈstæblɪʃ/", usPhonetic: "/ɪˈstæblɪʃ/",
+    root: "e- (出) + stabilish (使稳固) → 建立",
+    definitions: [
+      { context: "通用", meaning: "建立，创立" },
+      { context: "学术", meaning: "确立，证实" }
+    ],
+    examples: [
+      { en: "The company was established in 1995.", zh: "这家公司成立于1995年。" },
+      { en: "Scientists have established a link between diet and health.", zh: "科学家已经确定了饮食与健康之间的联系。" }
+    ] },
+  { id: 16, word: "evaluate", difficulty: 2,
+    ukPhonetic: "/ɪˈvæljueɪt/", usPhonetic: "/ɪˈvæljueɪt/",
+    root: "e- (出) + val (价值) + -ate → 评出价值 → 评估",
+    definitions: [
+      { context: "学术", meaning: "评估，评价" },
+      { context: "职场", meaning: "考核" }
+    ],
+    examples: [
+      { en: "Teachers evaluate students' performance through various assessments.", zh: "老师通过多种评估方式来评价学生的表现。" },
+      { en: "We need to evaluate the risks before making a decision.", zh: "在做决定之前我们需要评估风险。" }
+    ] },
+  { id: 17, word: "evidence", difficulty: 1,
+    ukPhonetic: "/ˈevɪdəns/", usPhonetic: "/ˈevɪdəns/",
+    root: "e- (出) + vid (看) + -ence → 看得见的东西 → 证据",
+    definitions: [
+      { context: "学术", meaning: "证据，迹象" }
+    ],
+    examples: [
+      { en: "There is strong evidence that exercise improves mental health.", zh: "有强有力的证据表明运动能改善心理健康。" },
+      { en: "The police found evidence linking him to the crime.", zh: "警方找到了将他与犯罪联系起来的证据。" }
+    ] },
+  { id: 18, word: "global", difficulty: 1,
+    ukPhonetic: "/ˈɡləʊbl/", usPhonetic: "/ˈɡloʊbl/",
+    root: "glob (球) + -al (形容词) → 全球的",
+    definitions: [
+      { context: "通用", meaning: "全球的" },
+      { context: "学术", meaning: "全面的，整体的" }
+    ],
+    examples: [
+      { en: "Global warming is one of the most serious issues we face.", zh: "全球变暖是我们面临的最严峻的问题之一。" },
+      { en: "The company has a global presence in over 50 countries.", zh: "该公司在全球50多个国家都有业务。" }
+    ] },
+  { id: 19, word: "impact", difficulty: 1,
+    ukPhonetic: "/ˈɪmpækt/", usPhonetic: "/ˈɪmpækt/",
+    root: "im- (向内) + pact (撞击) → 冲击",
+    definitions: [
+      { context: "通用", meaning: "影响，冲击" },
+      { context: "学术", meaning: "影响（程度）" }
+    ],
+    examples: [
+      { en: "The new policy had a significant impact on the economy.", zh: "新政策对经济产生了重大影响。" },
+      { en: "Technology has transformed the impact of education worldwide.", zh: "技术改变了全球教育的影响力。" }
+    ] },
+  { id: 20, word: "individual", difficulty: 1,
+    ukPhonetic: "/ˌɪndɪˈvɪdʒuəl/", usPhonetic: "/ˌɪndɪˈvɪdʒuəl/",
+    root: "in- (不) + divid (分割) + -ual → 不可分割的 → 个体",
+    definitions: [
+      { context: "通用", meaning: "个人的，个体的" },
+      { context: "职场", meaning: "个人（名词）" }
+    ],
+    examples: [
+      { en: "Each individual has their own unique talents.", zh: "每个人都有自己的独特才能。" },
+      { en: "The course is designed for individual learning needs.", zh: "这门课程是为个人学习需求设计的。" }
+    ] },
+  { id: 21, word: "interpret", difficulty: 2,
+    ukPhonetic: "/ɪnˈtɜːprɪt/", usPhonetic: "/ɪnˈtɜːrprɪt/",
+    root: "inter- (在...之间) + pret (传达) → 在中间传达 → 解释",
+    definitions: [
+      { context: "学术", meaning: "解释，解读" },
+      { context: "职场", meaning: "口译" }
+    ],
+    examples: [
+      { en: "It's important to interpret the data correctly.", zh: "正确解读数据非常重要。" },
+      { en: "She interpreted the speech for foreign guests.", zh: "她为外宾做了口译。" }
+    ] },
+  { id: 22, word: "maintain", difficulty: 1,
+    ukPhonetic: "/meɪnˈteɪn/", usPhonetic: "/meɪnˈteɪn/",
+    root: "main (手) + tain (保持) → 握在手中 → 维持",
+    definitions: [
+      { context: "通用", meaning: "维持，保持" },
+      { context: "职场", meaning: "维护，保养" }
+    ],
+    examples: [
+      { en: "It's important to maintain a healthy lifestyle.", zh: "保持健康的生活方式很重要。" },
+      { en: "The company maintains high standards of quality.", zh: "这家公司保持着高质量标准。" }
+    ] },
+  { id: 23, word: "occur", difficulty: 2,
+    ukPhonetic: "/əˈkɜː(r)/", usPhonetic: "/əˈkɜːr/",
+    root: "oc- (朝向) + cur (跑) → 跑向 → 发生",
+    definitions: [
+      { context: "通用", meaning: "发生" },
+      { context: "学术", meaning: "出现，存在" }
+    ],
+    examples: [
+      { en: "The accident occurred late at night.", zh: "事故发生在深夜。" },
+      { en: "A new idea occurred to me while reading the article.", zh: "读这篇文章时我想到了一个新主意。" }
+    ] },
+  { id: 24, word: "participate", difficulty: 1,
+    ukPhonetic: "/pɑːˈtɪsɪpeɪt/", usPhonetic: "/pɑːrˈtɪsɪpeɪt/",
+    root: "part (部分) + cip (拿) + -ate → 拿一份 → 参与",
+    definitions: [
+      { context: "通用", meaning: "参与，参加" }
+    ],
+    examples: [
+      { en: "Students are encouraged to participate in class discussions.", zh: "鼓励学生参与课堂讨论。" },
+      { en: "Twenty countries participated in the international conference.", zh: "二十个国家参加了这次国际会议。" }
+    ] },
+  { id: 25, word: "significant", difficulty: 1,
+    ukPhonetic: "/sɪɡˈnɪfɪkənt/", usPhonetic: "/sɪɡˈnɪfɪkənt/",
+    root: "sign (标记) + fic (做) + -ant → 做出标记 → 重要的",
+    definitions: [
+      { context: "通用", meaning: "重要的，显著的" },
+      { context: "学术", meaning: "有意义的" }
+    ],
+    examples: [
+      { en: "There has been a significant increase in sales this year.", zh: "今年销售额有了显著增长。" },
+      { en: "This is a significant achievement for the team.", zh: "这对团队来说是一项重大成就。" }
+    ] },
+  { id: 26, word: "approximately", difficulty: 2,
+    ukPhonetic: "/əˈprɒksɪmətli/", usPhonetic: "/əˈprɑːksɪmətli/",
+    root: "ad- (朝向) + proxim (最近) + -ate + -ly → 大约",
+    definitions: [
+      { context: "学术", meaning: "大约，近似地" }
+    ],
+    examples: [
+      { en: "The project will take approximately six months to complete.", zh: "这个项目大约需要六个月完成。" },
+      { en: "Approximately 200 people attended the conference.", zh: "大约有200人参加了会议。" }
+    ] },
+  { id: 27, word: "consequence", difficulty: 2,
+    ukPhonetic: "/ˈkɒnsɪkwəns/", usPhonetic: "/ˈkɑːnsɪkwens/",
+    root: "con- (一起) + sequ (跟随) + -ence → 跟随其后 → 后果",
+    definitions: [
+      { context: "学术", meaning: "结果，后果" }
+    ],
+    examples: [
+      { en: "Every action has consequences.", zh: "每个行动都有后果。" },
+      { en: "The consequence of pollution is damage to our health.", zh: "污染的后果是损害我们的健康。" }
+    ] },
+  { id: 28, word: "eliminate", difficulty: 2,
+    ukPhonetic: "/ɪˈlɪmɪneɪt/", usPhonetic: "/ɪˈlɪmɪneɪt/",
+    root: "e- (出) + limen (门槛) + -ate → 赶出门槛 → 消除",
+    definitions: [
+      { context: "通用", meaning: "消除，消灭" },
+      { context: "职场", meaning: "淘汰" }
+    ],
+    examples: [
+      { en: "We need to eliminate waste to reduce costs.", zh: "我们需要消除浪费以降低成本。" },
+      { en: "He was eliminated in the first round of the competition.", zh: "他在第一轮比赛就被淘汰了。" }
+    ] },
+  { id: 29, word: "identify", difficulty: 1,
+    ukPhonetic: "/aɪˈdentɪfaɪ/", usPhonetic: "/aɪˈdentɪfaɪ/",
+    root: "idem (相同) + fy (使成为) → 确认相同 → 识别",
+    definitions: [
+      { context: "通用", meaning: "确认，识别" },
+      { context: "学术", meaning: "发现，找出" }
+    ],
+    examples: [
+      { en: "Police have identified the suspect.", zh: "警方已经确认了嫌疑人。" },
+      { en: "Researchers identified a link between sleep and memory.", zh: "研究人员发现了睡眠和记忆之间的联系。" }
+    ] },
+  { id: 30, word: "migrate", difficulty: 2,
+    ukPhonetic: "/maɪˈɡreɪt/", usPhonetic: "/ˈmaɪɡreɪt/",
+    root: "migr (移动) + -ate → 迁移",
+    definitions: [
+      { context: "通用", meaning: "迁移，移居" },
+      { context: "自然", meaning: "（鸟类等）迁徙" }
+    ],
+    examples: [
+      { en: "Many birds migrate south for the winter.", zh: "许多鸟类冬天迁徙到南方。" },
+      { en: "People migrate to cities in search of better opportunities.", zh: "人们迁移到城市寻找更好的机会。" }
+    ] },
+  { id: 31, word: "option", difficulty: 1,
+    ukPhonetic: "/ˈɒpʃn/", usPhonetic: "/ˈɑːpʃn/",
+    root: "opt (选择) + -ion → 选择，选项",
+    definitions: [
+      { context: "通用", meaning: "选择，选项" }
+    ],
+    examples: [
+      { en: "We have several options to choose from.", zh: "我们有多个选项可供选择。" },
+      { en: "Students have the option to study abroad.", zh: "学生有出国留学的选择。" }
+    ] },
+  { id: 32, word: "positive", difficulty: 1,
+    ukPhonetic: "/ˈpɒzətɪv/", usPhonetic: "/ˈpɑːzətɪv/",
+    root: "posit (放置) + -ive → 摆好的 → 积极的",
+    definitions: [
+      { context: "通用", meaning: "积极的，正面的" },
+      { context: "学术", meaning: "肯定的" }
+    ],
+    examples: [
+      { en: "Try to stay positive even in difficult situations.", zh: "即使在困难的情况下也要保持积极。" },
+      { en: "The feedback from customers was very positive.", zh: "来自客户的反馈非常正面。" }
+    ] },
+  { id: 33, word: "previous", difficulty: 1,
+    ukPhonetic: "/ˈpriːviəs/", usPhonetic: "/ˈpriːviəs/",
+    root: "pre- (在前) + via (路) + -ous → 走在前面 → 之前的",
+    definitions: [
+      { context: "通用", meaning: "之前的，先前的" }
+    ],
+    examples: [
+      { en: "I had no previous experience in teaching.", zh: "我之前没有教学经验。" },
+      { en: "The previous chapter discussed climate change.", zh: "前一章讨论了气候变化。" }
+    ] },
+  { id: 34, word: "process", difficulty: 1,
+    ukPhonetic: "/ˈprəʊses/", usPhonetic: "/ˈprɑːses/",
+    root: "pro- (向前) + cess (走) → 向前走 → 过程",
+    definitions: [
+      { context: "通用", meaning: "过程，流程" },
+      { context: "职场", meaning: "处理（动词）" }
+    ],
+    examples: [
+      { en: "Learning a language is a gradual process.", zh: "学习语言是一个渐进的过程。" },
+      { en: "The application will be processed within two weeks.", zh: "申请将在两周内处理。" }
+    ] },
+  { id: 35, word: "require", difficulty: 1,
+    ukPhonetic: "/rɪˈkwaɪə(r)/", usPhonetic: "/rɪˈkwaɪər/",
+    root: "re- (再) + quire (询问/寻求) → 反复寻求 → 需要",
+    definitions: [
+      { context: "通用", meaning: "需要，要求" }
+    ],
+    examples: [
+      { en: "This job requires strong communication skills.", zh: "这份工作需要很强的沟通能力。" },
+      { en: "All students are required to attend the meeting.", zh: "所有学生都必须参加会议。" }
+    ] },
+  { id: 36, word: "respond", difficulty: 1,
+    ukPhonetic: "/rɪˈspɒnd/", usPhonetic: "/rɪˈspɑːnd/",
+    root: "re- (回) + spond (承诺) → 回应承诺 → 回应",
+    definitions: [
+      { context: "通用", meaning: "回应，回答" },
+      { context: "职场", meaning: "响应" }
+    ],
+    examples: [
+      { en: "Please respond to the email by Friday.", zh: "请在周五之前回复邮件。" },
+      { en: "The company responded quickly to customer complaints.", zh: "公司迅速回应了客户的投诉。" }
+    ] },
+  { id: 37, word: "strategy", difficulty: 2,
+    ukPhonetic: "/ˈstrætədʒi/", usPhonetic: "/ˈstrætədʒi/",
+    root: "stratos (军队) + ag (领导) + -y → 领导军队的方法 → 策略",
+    definitions: [
+      { context: "职场", meaning: "策略，战略" }
+    ],
+    examples: [
+      { en: "The company developed a new marketing strategy.", zh: "公司制定了一项新的营销策略。" },
+      { en: "A good study strategy can help you improve your IELTS score.", zh: "一个好的学习策略可以帮助你提高雅思成绩。" }
+    ] },
+  { id: 38, word: "sufficient", difficulty: 2,
+    ukPhonetic: "/səˈfɪʃnt/", usPhonetic: "/səˈfɪʃnt/",
+    root: "sub- (在...之下) + fic (做) + -ient → 在下面做好 → 足够的",
+    definitions: [
+      { context: "通用", meaning: "足够的，充分的" }
+    ],
+    examples: [
+      { en: "We have sufficient evidence to support the argument.", zh: "我们有足够的证据支持这个论点。" },
+      { en: "Make sure you get sufficient sleep before the exam.", zh: "考试前确保有充足的睡眠。" }
+    ] },
+  { id: 39, word: "vary", difficulty: 1,
+    ukPhonetic: "/ˈveəri/", usPhonetic: "/ˈveri/",
+    root: "var (变化) + -y → 变化，不同",
+    definitions: [
+      { context: "通用", meaning: "变化，不同" },
+      { context: "学术", meaning: "随...而变化" }
+    ],
+    examples: [
+      { en: "Prices vary depending on the season.", zh: "价格随季节而变化。" },
+      { en: "Opinions on this issue vary from person to person.", zh: "对这个问题的看法因人而异。" }
+    ] },
+  { id: 40, word: "achieve", difficulty: 1,
+    ukPhonetic: "/əˈtʃiːv/", usPhonetic: "/əˈtʃiːv/",
+    root: "a- (到) + chief (头/终点) → 到达终点 → 达成",
+    definitions: [
+      { context: "通用", meaning: "实现，达到" },
+      { context: "职场", meaning: "取得（成就）" }
+    ],
+    examples: [
+      { en: "She achieved her goal of scoring Band 8 in IELTS.", zh: "她实现了雅思8分的目标。" },
+      { en: "The company achieved record profits this year.", zh: "公司今年取得了创纪录的利润。" }
     ] }
 ];
 
@@ -130,7 +450,7 @@ const PASSAGES = [
       { en: "Good transport benefits both the economy and the environment.", zh: "良好的交通对经济和环境都有益。" }
     ] },
   { id: 3, title: "Climate Change", level: "B2",
-    embedWords: [6, 8],
+    embedWords: [6, 8, 14, 27],
     content: [
       { en: "Climate change is one of the biggest challenges we face today.", zh: "气候变化是我们当今面临的最大挑战之一。" },
       { en: "Scientists predict that global temperatures will continue to rise.", zh: "科学家预测全球气温将继续上升。" },
@@ -142,7 +462,7 @@ const PASSAGES = [
       { en: "If we take action now, future generations will benefit greatly.", zh: "如果我们现在就采取行动，后代将大大受益。" }
     ] },
   { id: 4, title: "Lifelong Learning", level: "B2",
-    embedWords: [5, 1, 9],
+    embedWords: [5, 1, 9, 15, 34],
     content: [
       { en: "Learning does not stop when you leave school.", zh: "离开学校后学习并不会停止。" },
       { en: "Lifelong learning is essential in today's rapidly changing world.", zh: "终身学习在当今快速变化的世界中至关重要。" },
@@ -155,7 +475,7 @@ const PASSAGES = [
       { en: "In the end, education benefits everyone, regardless of age.", zh: "归根结底，教育使每个人受益，无论年龄大小。" }
     ] },
   { id: 5, title: "Technology & Communication", level: "B2",
-    embedWords: [9, 2],
+    embedWords: [9, 2, 19, 21],
     content: [
       { en: "Technology has changed the way we communicate with each other.", zh: "技术改变了我们彼此沟通的方式。" },
       { en: "Social media allows us to stay connected with friends across the world.", zh: "社交媒体让我们与世界各地的朋友保持联系。" },
@@ -189,6 +509,42 @@ const PASSAGES = [
       { en: "Drinking enough water is also important for your body.", zh: "喝足够的水对你的身体也很重要。" },
       { en: "Small changes in your diet can lead to big health improvements.", zh: "饮食上的小改变可以带来健康的大改善。" },
       { en: "The key is to be consistent and not give up after a few days.", zh: "关键是要坚持，不要几天后就放弃。" }
+    ] },
+  { id: 8, title: "Teamwork & Success", level: "B2",
+    embedWords: [12, 13, 24, 25],
+    content: [
+      { en: "Teamwork is essential for success in any organization.", zh: "团队合作在任何组织中都是成功的关键。" },
+      { en: "Each individual contributes their unique skills to the team.", zh: "每个个体都贡献自己独特的技能给团队。" },
+      { en: "Studies demonstrate that diverse teams perform better.", zh: "研究表明多元化的团队表现更好。" },
+      { en: "It is important to participate actively in group discussions.", zh: "积极参与小组讨论非常重要。" },
+      { en: "Team members must maintain good communication at all times.", zh: "团队成员必须始终保持良好的沟通。" },
+      { en: "A positive attitude can make a significant difference in teamwork.", zh: "积极的态度可以给团队合作带来显著的不同。" },
+      { en: "When everyone contributes equally, the team achieves better results.", zh: "當每个人都平等贡献时，团队会取得更好的成果。" },
+      { en: "The process of working together builds trust and understanding.", zh: "一起工作的过程建立了信任和理解。" }
+    ] },
+  { id: 9, title: "Career Planning", level: "B2",
+    embedWords: [16, 29, 31, 37, 39],
+    content: [
+      { en: "Choosing the right career path requires careful planning.", zh: "选择正确的职业道路需要仔细规划。" },
+      { en: "You should evaluate your skills and interests before deciding.", zh: "在做决定之前你应该评估自己的技能和兴趣。" },
+      { en: "It helps to identify what you are truly passionate about.", zh: "找出你真正热爱的领域会很有帮助。" },
+      { en: "There are many options available in today's job market.", zh: "如今的就业市场有很多选择。" },
+      { en: "Previous work experience can help you make better decisions.", zh: "以前的工作经验可以帮助你做更好的决定。" },
+      { en: "A good strategy is to gain experience in different fields first.", zh: "一个好的策略是先在不同的领域积累经验。" },
+      { en: "Career paths vary greatly depending on the industry.", zh: "职业道路因行业而异。" },
+      { en: "With sufficient preparation, you can achieve your career goals.", zh: "有充分的准备，你就能实现职业目标。" }
+    ] },
+  { id: 10, title: "Global Issues", level: "B2",
+    embedWords: [14, 18, 19, 26, 27, 38],
+    content: [
+      { en: "The global population has grown significantly in the past century.", zh: "全球人口在过去一个世纪里显著增长。" },
+      { en: "Approximately 8 billion people now live on our planet.", zh: "现在大约有80亿人生活在地球上。" },
+      { en: "Climate change has a serious impact on the environment.", zh: "气候变化对环境有严重影响。" },
+      { en: "One consequence of pollution is the loss of biodiversity.", zh: "污染的一个后果是生物多样性的丧失。" },
+      { en: "Global cooperation is required to solve these problems.", zh: "解决这些问题需要全球合作。" },
+      { en: "Countries must respond quickly to environmental challenges.", zh: "各国必须迅速应对环境挑战。" },
+      { en: "Sufficient funding for renewable energy is essential.", zh: "为可再生能源提供充足的资金至关重要。" },
+      { en: "Every individual can contribute to a more sustainable future.", zh: "每个个体都可以为一个更可持续的未来做出贡献。" }
     ] }
 ];
 
@@ -519,24 +875,36 @@ const SPEAKING_TOPICS = [
     question: "Do you think exercise is important?",
     hint: "Use PRE structure",
     model: "P: I believe exercise is extremely important for overall health.\nR: Regular physical activity can prevent many diseases and improve mental well-being.\nE: For example, my father started jogging every morning and his blood pressure dropped significantly within three months.",
-    keywords: ["benefit", "inevitable", "predict"]
+    keywords: ["benefit", "inevitable", "predict", "positive"]
   },
   {
     question: "Should cities invest more in public transport?",
     hint: "Use PRE structure",
     model: "P: Yes, cities should invest more in public transport systems.\nR: Efficient transport can reduce traffic congestion and air pollution significantly.\nE: In my hometown, the new subway line reduced commute time by half and thousands of people benefit from it every day.",
-    keywords: ["transport", "benefit", "distribute"]
+    keywords: ["transport", "benefit", "distribute", "environment"]
   },
   {
     question: "Is lifelong learning important?",
     hint: "Use PRE structure",
     model: "P: Lifelong learning is essential in today's rapidly changing world.\nR: New technologies and knowledge emerge constantly, and those who fail to adapt will be left behind.\nE: My aunt learned coding at age 50 and completely changed her career path, which inspired many people around her.",
-    keywords: ["inspire", "inevitable", "comprehend"]
+    keywords: ["inspire", "inevitable", "comprehend", "achieve"]
   },
   {
     question: "Has technology improved education?",
     hint: "Use PRE structure",
-    model: "P: I strongly agree that technology has transformed education for the better.\nR: Online resources and digital tools make learning more accessible and personalized.\nE: During the pandemic, schools distributed tablets to students and distributed learning materials online, which prevented education from being interrupted.",
-    keywords: ["distribute", "exclude", "benefit"]
+    model: "P: I strongly agree that technology has transformed education for the better.\nR: Online resources and digital tools make learning more accessible and personalized.\nE: During the pandemic, schools distributed tablets to students and shared learning materials online, which prevented education from being interrupted.",
+    keywords: ["distribute", "exclude", "benefit", "significant"]
+  },
+  {
+    question: "Do you think climate change is a serious issue?",
+    hint: "Use PRE structure",
+    model: "P: Absolutely, climate change is one of the most serious challenges we face today.\nR: Rising temperatures and extreme weather events have a significant impact on our planet.\nE: For example, scientists have identified that global temperatures have risen by approximately 1°C since the industrial revolution, and the consequences are already visible.",
+    keywords: ["global", "significant", "impact", "identify", "consequence", "approximately"]
+  },
+  {
+    question: "What is the most important skill for young people to learn?",
+    hint: "Use PRE structure",
+    model: "P: I believe critical thinking is one of the most important skills for young people.\nR: In an age of information overload, individuals need to evaluate sources and analyze data carefully.\nE: For instance, when my younger brother learned to identify fake news online, he became much better at making informed decisions about what to believe.",
+    keywords: ["analyze", "individual", "evaluate", "identify"]
   }
 ];
