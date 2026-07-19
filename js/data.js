@@ -432,12 +432,13 @@ const WORD_DATA = [
 
 const PASSAGES = [
   { id: 1, title: "Why Exercise Matters", level: "B2",
-    embedWords: [2],
+    embedWords: [2, 6, 8, 32, 22],
     content: [
       { en: "Regular exercise has many health benefits.", zh: "定期锻炼对健康有很多好处。" },
-      { en: "It can help prevent heart disease and improve mental health.", zh: "它有助于预防心脏病并改善心理健康。" },
+      { en: "It helps maintain a healthy heart and improves mental well-being.", zh: "它有助于保持心脏健康和改善心理健康。" },
       { en: "Many people benefit greatly from just 30 minutes of daily activity.", zh: "许多人每天只需30分钟的活动就能受益匪浅。" },
       { en: "Scientists predict that regular exercise can extend your lifespan.", zh: "科学家预测定期锻炼可以延长寿命。" },
+      { en: "A positive attitude towards fitness makes it easier to stay active.", zh: "对健身保持积极态度更容易坚持运动。" },
       { en: "The benefits are inevitable if you stay consistent.", zh: "如果坚持下去，好处是不可避免的。" }
     ] },
   { id: 2, title: "Urban Transport", level: "B2",
@@ -450,19 +451,20 @@ const PASSAGES = [
       { en: "Good transport benefits both the economy and the environment.", zh: "良好的交通对经济和环境都有益。" }
     ] },
   { id: 3, title: "Climate Change", level: "B2",
-    embedWords: [6, 8, 14, 27],
+    embedWords: [6, 8, 14, 18, 19, 27],
     content: [
       { en: "Climate change is one of the biggest challenges we face today.", zh: "气候变化是我们当今面临的最大挑战之一。" },
       { en: "Scientists predict that global temperatures will continue to rise.", zh: "科学家预测全球气温将继续上升。" },
+      { en: "This has a serious impact on weather patterns and ecosystems.", zh: "这对天气模式和生态系统产生了严重影响。" },
       { en: "Many countries are working together to reduce carbon emissions.", zh: "许多国家正在共同努力减少碳排放。" },
       { en: "It is inevitable that we must change our energy sources.", zh: "我们不可避免地必须改变能源来源。" },
       { en: "Renewable energy like solar and wind power is becoming more affordable.", zh: "太阳能和风能等可再生能源变得越来越实惠。" },
       { en: "Individuals can also make small changes to help the environment.", zh: "个人也可以做出小改变来帮助环境。" },
-      { en: "For example, using public transport instead of private cars.", zh: "例如，使用公共交通代替私家车。" },
+      { en: "One consequence of pollution is damage to our health and planet.", zh: "污染的一个后果是损害我们的健康和地球。" },
       { en: "If we take action now, future generations will benefit greatly.", zh: "如果我们现在就采取行动，后代将大大受益。" }
     ] },
   { id: 4, title: "Lifelong Learning", level: "B2",
-    embedWords: [5, 1, 9, 15, 34],
+    embedWords: [5, 1, 9, 15, 34, 40],
     content: [
       { en: "Learning does not stop when you leave school.", zh: "离开学校后学习并不会停止。" },
       { en: "Lifelong learning is essential in today's rapidly changing world.", zh: "终身学习在当今快速变化的世界中至关重要。" },
@@ -470,45 +472,46 @@ const PASSAGES = [
       { en: "Online courses make it easier to access knowledge anytime.", zh: "在线课程使随时获取知识变得更加容易。" },
       { en: "Some adults feel they must abandon old habits to make room for learning.", zh: "一些成年人觉得必须放弃旧习惯来为学习腾出空间。" },
       { en: "It takes time to fully comprehend complex subjects.", zh: "充分理解复杂的科目需要时间。" },
-      { en: "However, the effort is worth it for personal growth.", zh: "然而，为了个人成长，这种努力是值得的。" },
-      { en: "People who keep learning tend to have more fulfilling careers.", zh: "持续学习的人往往拥有更充实的职业生涯。" },
-      { en: "In the end, education benefits everyone, regardless of age.", zh: "归根结底，教育使每个人受益，无论年龄大小。" }
+      { en: "The learning process helps you grow both personally and professionally.", zh: "学习过程帮助你在个人和职业上都得到成长。" },
+      { en: "Once you establish a daily study routine, progress becomes easier.", zh: "一旦建立了日常学习习惯，进步就变得更容易了。" },
+      { en: "With dedication, anyone can achieve their learning goals.", zh: "只要用心，任何人都能实现自己的学习目标。" }
     ] },
   { id: 5, title: "Technology & Communication", level: "B2",
-    embedWords: [9, 2, 19, 21],
+    embedWords: [9, 2, 19, 21, 3],
     content: [
       { en: "Technology has changed the way we communicate with each other.", zh: "技术改变了我们彼此沟通的方式。" },
+      { en: "The impact of technology on communication is enormous.", zh: "技术对沟通的影响是巨大的。" },
       { en: "Social media allows us to stay connected with friends across the world.", zh: "社交媒体让我们与世界各地的朋友保持联系。" },
-      { en: "However, some people feel that online communication lacks depth.", zh: "然而，有些人觉得在线交流缺乏深度。" },
-      { en: "It is hard to fully comprehend emotions through text messages alone.", zh: "仅通过短信很难完全理解情感。" },
-      { en: "Young people often contradict their parents' views on technology.", zh: "年轻人常常反驳父母对技术的看法。" },
+      { en: "However, it can be hard to comprehend emotions through text alone.", zh: "然而，仅通过文字很难理解情感。" },
+      { en: "People often contradict each other's views online.", zh: "人们常常在网上反驳彼此的观点。" },
+      { en: "We need to interpret messages carefully to avoid misunderstandings.", zh: "我们需要仔细解读信息以避免误解。" },
       { en: "Despite these challenges, technology brings many benefits to communication.", zh: "尽管有这些挑战，技术给沟通带来了许多好处。" },
       { en: "Video calls make it possible to see loved ones from a distance.", zh: "视频通话让人们能见到远方的亲人。" },
       { en: "The key is to find a balance between online and offline interaction.", zh: "关键是在线上和线下互动之间找到平衡。" }
     ] },
   { id: 6, title: "Choosing a Career Path", level: "B2",
-    embedWords: [5, 1],
+    embedWords: [5, 1, 16, 29, 31],
     content: [
       { en: "Choosing a career path is one of the most important decisions in life.", zh: "选择职业道路是人生中最重要的决定之一。" },
-      { en: "Many young people feel pressure to choose a stable profession.", zh: "许多年轻人感到要选择稳定职业的压力。" },
-      { en: "Parents often want their children to become doctors or lawyers.", zh: "父母通常希望孩子成为医生或律师。" },
-      { en: "However, following your passion can lead to greater satisfaction.", zh: "然而，追随自己的热情可以带来更大的满足感。" },
+      { en: "You should evaluate your skills and interests before deciding.", zh: "在做决定之前你应该评估自己的技能和兴趣。" },
+      { en: "It helps to identify what you are truly passionate about.", zh: "找出你真正热爱的领域会很有帮助。" },
       { en: "My teacher inspired me to pursue a career in education.", zh: "我的老师激励我从事教育事业。" },
       { en: "Some people abandon their dream jobs because of financial concerns.", zh: "有些人因为经济顾虑而放弃了梦想的工作。" },
+      { en: "There are many options available in today's job market.", zh: "如今的就业市场有很多选择。" },
       { en: "But doing what you love can benefit both your happiness and performance.", zh: "但做你喜欢的事情既有利于幸福感也有利于表现。" },
       { en: "In the end, the best career is one that matches your skills and values.", zh: "归根结底，最好的职业是符合你技能和价值观的那个。" }
     ] },
   { id: 7, title: "Healthy Eating Habits", level: "B1",
-    embedWords: [2, 4],
+    embedWords: [2, 4, 22, 11],
     content: [
       { en: "A balanced diet is essential for maintaining good health.", zh: "均衡饮食对保持健康至关重要。" },
+      { en: "It helps to analyze the nutritional content of the food you eat.", zh: "分析你所吃食物的营养成分会很有帮助。" },
       { en: "Many people benefit from eating more fruits and vegetables.", zh: "许多人从多吃水果和蔬菜中受益。" },
-      { en: "Experts advise excluding processed foods from your daily diet.", zh: "专家建议将加工食品排除在日常饮食之外。" },
-      { en: "It can be difficult to abandon the habit of eating junk food.", zh: "放弃吃垃圾食品的习惯可能很困难。" },
+      { en: "Experts advise you to exclude processed foods from your daily diet.", zh: "专家建议将加工食品排除在日常饮食之外。" },
+      { en: "Maintaining a healthy diet requires planning and discipline.", zh: "保持健康饮食需要规划和自律。" },
       { en: "Cooking at home is a great way to control what you eat.", zh: "在家做饭是控制饮食的好方法。" },
       { en: "Drinking enough water is also important for your body.", zh: "喝足够的水对你的身体也很重要。" },
-      { en: "Small changes in your diet can lead to big health improvements.", zh: "饮食上的小改变可以带来健康的大改善。" },
-      { en: "The key is to be consistent and not give up after a few days.", zh: "关键是要坚持，不要几天后就放弃。" }
+      { en: "Small changes in your diet can lead to big health improvements.", zh: "饮食上的小改变可以带来健康的大改善。" }
     ] },
   { id: 8, title: "Teamwork & Success", level: "B2",
     embedWords: [12, 13, 24, 25],
@@ -554,7 +557,7 @@ const VIDEOS = [
     youtubeId: "KhI7Ncl61i0",
     title: "谷爱凌：关于未来与目标",
     source: "Bloomberg Interview",
-    embedWords: [],
+    embedWords: [40, 15, 5, 1, 31, 37],
     segments: [
       { start: 0, end: 6,
         en: "When you think about the future, what's in it for Eileen Gu?",
@@ -603,7 +606,7 @@ const VIDEOS = [
     youtubeId: "t9PRLpkCUSM",
     title: "雅思口语：完美发音与词汇",
     source: "IELTS Advantage",
-    embedWords: [],
+    embedWords: [20, 13, 24],
     segments: [
       { start: 0, end: 7,
         en: "I like daylight, so if I had more windows in my house, that would make it better.",
@@ -648,7 +651,7 @@ const VIDEOS = [
     youtubeId: "EIYfzuZ-mL4",
     title: "雅思口语：Band 9 高分技巧",
     source: "English Pro Tips",
-    embedWords: [],
+    embedWords: [34, 9, 25, 33],
     segments: [
       { start: 0, end: 8,
         en: "How did you get to such a high level of English?",
@@ -693,7 +696,7 @@ const VIDEOS = [
     youtubeId: "t4q2e-HNViU",
     title: "雅思口语：满分学员经验分享",
     source: "English Pro Tips",
-    embedWords: [],
+    embedWords: [35, 11, 21, 16, 29],
     segments: [
       { start: 0, end: 7,
         en: "I decided to prepare ten hours a day for ten days before my test.",
@@ -738,7 +741,7 @@ const VIDEOS = [
     youtubeId: "k4715CJ0Ii8",
     title: "雅思口语：满分发音与流利度",
     source: "IELTS Advantage",
-    embedWords: [],
+    embedWords: [2, 14, 18, 19],
     segments: [
       { start: 0, end: 7,
         en: "Let's start by talking about the mountains. Do you like to go on holiday there?",
@@ -783,7 +786,7 @@ const VIDEOS = [
     youtubeId: "VRZPb4S_SBA",
     title: "雅思口语：Band 9 模考反馈",
     source: "IELTS Daily",
-    embedWords: [],
+    embedWords: [16, 13, 25, 40, 35],
     segments: [
       { start: 0, end: 8,
         en: "How often do you listen to music? I listen in the car and when I drive.",
@@ -828,7 +831,7 @@ const VIDEOS = [
     youtubeId: "0HOf9IIt7wg",
     title: "雅思口语：越南考生 Band 9 实战",
     source: "AcademicEnglishHelp",
-    embedWords: [],
+    embedWords: [24, 36, 20, 31],
     segments: [
       { start: 0, end: 8,
         en: "What is your full name? My name is Brendan, but please call me by my nickname.",

@@ -259,6 +259,10 @@ body {
 .btn-speed.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 1px 3px rgba(37,99,235,0.3); }
 .listen-mode { font-size: 13px; }
 .listen-mode input { margin-right: 4px; accent-color: var(--primary); }
+.passage-words, .video-words { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; padding: 8px 12px; background: var(--primary-light); border-radius: var(--radius-sm); align-items: center; }
+.passage-words::before, .video-words::before { content: "📖 相關詞彙"; font-size: 12px; font-weight: 600; color: var(--primary); margin-right: 4px; }
+.word-tag { display: inline-block; padding: 3px 10px; background: #fff; border: 1px solid var(--primary); color: var(--primary); border-radius: 12px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+.word-tag:hover { background: var(--primary); color: #fff; }
 .passage-content { background: var(--surface); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); margin-bottom: 10px; }
 .sentence-item { padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; font-size: 14px; line-height: 1.5; }
 .sentence-item:last-child { border-bottom: none; }

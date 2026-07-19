@@ -428,6 +428,16 @@ function calcDaysSinceStart() {
   return Math.floor((new Date() - first) / (1000 * 60 * 60 * 24)) + 1;
 }
 
+function renderWordTags(embedWords, containerId) {
+  const container = document.getElementById(containerId);
+  if (!embedWords || embedWords.length === 0) { container.innerHTML = ''; container.style.display = 'none'; return; }
+  container.style.display = 'flex';
+  container.innerHTML = embedWords.map(id => {
+    const w = WORD_DATA.find(x => x.id === id);
+    return w ? `<span class="word-tag" onclick="openWordDetail(${id})">${w.word}</span>` : '';
+  }).join('');
+}
+
 function loadPassage() {
   const sel = document.getElementById('passageSelect');
   const id = parseInt(sel.value);
@@ -435,6 +445,7 @@ function loadPassage() {
   const p = PASSAGES.find(x => x.id === id);
   if (!p) return;
   currentListenPassageId = id;
+  renderWordTags(p.embedWords, 'passageWords');
   document.getElementById('passageLevel').textContent = p.level;
   const blind = document.getElementById('blindMode').checked;
   const container = document.getElementById('passageContent');
@@ -686,6 +697,7 @@ function loadVideo() {
   currentVideoId = id;
   const v = VIDEOS.find(x => x.id === id);
   if (!v) return;
+  renderWordTags(v.embedWords, 'videoWords');
   hideVideoFallback();
   if (videoApiLoadTimer) { clearTimeout(videoApiLoadTimer); videoApiLoadTimer = null; }
   if (!window.YT) { loadYouTubeAPI(); renderTranscript(); return; }
